@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace StudentsManager;
 
 public class Program
@@ -8,7 +10,10 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
-
+        builder.Services.AddDbContext<Context.Context>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string"));
+        });
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
