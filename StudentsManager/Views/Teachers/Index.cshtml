@@ -1,4 +1,4 @@
-@model IEnumerable<StudentsManager.Models.Student>
+@model IEnumerable<StudentsManager.Models.Teacher>
 
 @{
     ViewData["Title"] = "Index";
@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                <a button class="btn btn-primary" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a button class="btn btn-secondary" asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a button class="btn btn-danger" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                <a button class="btn btn-primary" asp-action="Edit" asp-route-id="@item.TeacherId">Edit</a> |
+                <a button class="btn btn-secondary" asp-action="Details" asp-route-id="@item.TeacherId">Details</a> |
+                <a button class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TeacherId">Delete</a>
             </td>
         </tr>
     }

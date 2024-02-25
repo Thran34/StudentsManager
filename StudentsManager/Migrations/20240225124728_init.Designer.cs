@@ -11,7 +11,7 @@ using StudentsManager.Context;
 namespace StudentsManager.Migrations
 {
     [DbContext(typeof(Context.Context))]
-    [Migration("20240225111841_init")]
+    [Migration("20240225124728_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
