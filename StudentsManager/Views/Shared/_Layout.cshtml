@@ -43,11 +43,14 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                         </li>
                     }
-                    else
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Register">Register User</a>
                         </li>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                         </li>

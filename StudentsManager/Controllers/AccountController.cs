@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentsManager.Models;
@@ -17,12 +18,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (ModelState.IsValid)
@@ -31,16 +34,13 @@ public class AccountController : Controller
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // Assign the user to a role
                 var roleResult = await _userManager.AddToRoleAsync(user, "User");
                 if (!roleResult.Succeeded)
                 {
-                    // Handle the error if role assignment failed
                     foreach (var error in roleResult.Errors) ModelState.AddModelError("", error.Description);
                     return View(model);
                 }
 
-                await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("index", "home");
             }
 
@@ -49,7 +49,6 @@ public class AccountController : Controller
 
         return View(model);
     }
-
 
     [HttpGet]
     public IActionResult Login(string returnUrl = null)

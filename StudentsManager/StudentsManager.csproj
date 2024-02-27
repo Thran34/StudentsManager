@@ -23,4 +23,19 @@
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Graphic\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Graphic\case.ico"/>
+        <None Include="wwwroot\lamp.ico"/>
+        <None Include="wwwroot\laptop.ico"/>
+        <None Include="wwwroot\logo.png"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="wwwroot\Icons\case.ico"/>
+    </ItemGroup>
+
 </Project>
