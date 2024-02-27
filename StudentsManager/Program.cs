@@ -36,7 +36,7 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
-
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(
@@ -46,12 +46,26 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
+
+            var adminUser = new ApplicationUser
+            {
+                UserName = "admin@example.com",
+                Email = "admin@example.com"
+            };
+
             try
             {
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 await RoleInitializer.InitializeAsync(userManager, roleManager);
+
+                if (userManager.FindByEmailAsync("admin@example.com").Result == null)
+                {
+                    var result = await userManager.CreateAsync(adminUser, "admin");
+                    if (result.Succeeded) await userManager.AddToRoleAsync(adminUser, "Admin");
+                }
             }
+
             catch (Exception ex)
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();

@@ -31,6 +31,15 @@ public class AccountController : Controller
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                // Assign the user to a role
+                var roleResult = await _userManager.AddToRoleAsync(user, "User");
+                if (!roleResult.Succeeded)
+                {
+                    // Handle the error if role assignment failed
+                    foreach (var error in roleResult.Errors) ModelState.AddModelError("", error.Description);
+                    return View(model);
+                }
+
                 await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("index", "home");
             }
@@ -40,6 +49,7 @@ public class AccountController : Controller
 
         return View(model);
     }
+
 
     [HttpGet]
     public IActionResult Login(string returnUrl = null)
