@@ -10,11 +10,16 @@ public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly Context.Context _context;
 
-    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+        RoleManager<IdentityRole> roleManager, Context.Context context)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _roleManager = roleManager;
+        _context = context;
     }
 
     [HttpGet]
@@ -30,18 +35,52 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                var roleResult = await _userManager.AddToRoleAsync(user, "User");
-                if (!roleResult.Succeeded)
+                var roleResult = await _userManager.AddToRoleAsync(user, model.Role);
+                if (roleResult.Succeeded)
+                {
+                    if (model.Role == "Student")
+                    {
+                        var student = new Student
+                        {
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            ApplicationUserId = user.Id
+                        };
+                        _context.Students.Add(student);
+                    }
+                    else if (model.Role == "Teacher")
+                    {
+                        var teacher = new Teacher
+                        {
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            Age = model.Age,
+                            PhoneNumber = model.PhoneNumber,
+                            Classes = model.Classes,
+                            ApplicationUserId = user.Id
+                        };
+                        _context.Teachers.Add(teacher);
+                    }
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("index", "home");
+                }
+                else
                 {
                     foreach (var error in roleResult.Errors) ModelState.AddModelError("", error.Description);
-                    return View(model);
                 }
-
-                return RedirectToAction("index", "home");
             }
 
             foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
@@ -49,6 +88,7 @@ public class AccountController : Controller
 
         return View(model);
     }
+
 
     [HttpGet]
     public IActionResult Login(string returnUrl = null)

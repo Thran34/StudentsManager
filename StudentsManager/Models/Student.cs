@@ -1,7 +1,10 @@
 namespace StudentsManager.Models;
 
-public class Student : Identity
+public class Student
 {
     public int StudentId { get; set; }
-    public List<Teacher> Teachers { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string ApplicationUserId { get; set; }
+    public ApplicationUser ApplicationUser { get; set; }
 }

@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using StudentsManager.Context;
 using StudentsManager.Models;
-using StudentsManager.Context;
+using static StudentsManager.Context.Context;
+using static StudentsManager.Context.Context;
 
 namespace StudentsManager.Controllers;
 

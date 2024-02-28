@@ -8,16 +8,22 @@ public static class RoleInitializer
     public static async Task InitializeAsync(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager)
     {
-        if (!await roleManager.RoleExistsAsync("Admin")) await roleManager.CreateAsync(new IdentityRole("Admin"));
-        if (!await roleManager.RoleExistsAsync("User")) await roleManager.CreateAsync(new IdentityRole("User"));
+        string[] roleNames = { "TEACHER", "STUDENT", "Admin", "User" };
+        foreach (var roleName in roleNames)
+        {
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExist) await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
 
-        var adminUser = await userManager.FindByEmailAsync("admin@example.com");
+        var adminUser = await userManager.FindByEmailAsync("admin@admin.com");
         if (adminUser == null)
         {
             var newUser = new ApplicationUser
             {
-                UserName = "admin@example.com",
-                Email = "admin@example.com",
+                UserName = "admin@admin.com",
+                Email = "admin@admin.com",
+                FirstName = "admin",
+                LastName = "admin",
                 EmailConfirmed = true
             };
 

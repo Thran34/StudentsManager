@@ -32,13 +32,6 @@ public class Program
             app.UseHsts();
         }
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
-
         app.MapControllerRoute(
             "default",
             "{controller=Home}/{action=Index}/{id?}");
@@ -59,6 +52,14 @@ public class Program
                 logger.LogError(ex, "An error occurred while seeding the database.");
             }
         }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
 
         await app.RunAsync();
     }
