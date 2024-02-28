@@ -13,6 +13,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddDbContext<Context.Context>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string"));

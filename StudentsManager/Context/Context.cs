@@ -29,10 +29,23 @@ public class Context : IdentityDbContext<ApplicationUser>
             .WithMany()
             .HasForeignKey(a => a.TeacherId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Message>()
+            .HasOne<ApplicationUser>(m => m.Sender)
+            .WithMany()
+            .HasForeignKey(m => m.SenderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Message>()
+            .HasOne<ApplicationUser>(m => m.Receiver)
+            .WithMany()
+            .HasForeignKey(m => m.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
 
     public DbSet<Student> Students { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<Message> Messages { get; set; }
 }
