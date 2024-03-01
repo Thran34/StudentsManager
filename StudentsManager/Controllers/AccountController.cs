@@ -10,7 +10,6 @@ public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly Context.Context _context;
 
     public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
@@ -18,7 +17,6 @@ public class AccountController : Controller
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _roleManager = roleManager;
         _context = context;
     }
 
@@ -55,6 +53,8 @@ public class AccountController : Controller
                         {
                             FirstName = model.FirstName,
                             LastName = model.LastName,
+                            Age = model.Age,
+                            PhoneNumber = model.PhoneNumber,
                             ApplicationUserId = user.Id
                         };
                         _context.Students.Add(student);
@@ -116,7 +116,6 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(model);
         }
-
 
         return View(model);
     }

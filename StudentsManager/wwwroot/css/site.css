@@ -16,3 +16,7 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+.my-navbar-blue {
+    background-image: linear-gradient(to left, #007bff, #6c757d);
+}

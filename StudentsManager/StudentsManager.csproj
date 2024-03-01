@@ -25,6 +25,7 @@
 
     <ItemGroup>
         <Folder Include="Graphic\"/>
+        <Folder Include="wwwroot\Icons\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -32,10 +33,6 @@
         <None Include="wwwroot\lamp.ico"/>
         <None Include="wwwroot\laptop.ico"/>
         <None Include="wwwroot\logo.png"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Include="wwwroot\Icons\case.ico"/>
     </ItemGroup>
 
 </Project>

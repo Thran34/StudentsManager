@@ -11,8 +11,7 @@
 
 <input type="hidden" id="currentUserId" value="@userId"/>
 
-
-<div class="text-center">
+<div class="text-center" style="margin-top: 200px;">
     @if (User.Identity.IsAuthenticated)
     {
         if (User.IsInRole("Admin"))
@@ -21,26 +20,19 @@
         }
         else
         {
-            <h1 class="display-4">Logged As User</h1>
+            <h1 class="display-4">Logged As @ViewBag.UserFirstName @ViewBag.UserLastName</h1>
         }
     }
     else
     {
-        <h1 class="display-4">Welcome!</h1>
+        <h1 class="display-4">Welcome to StuDio!</h1>
     }
 </div>
 
-<div class="text-center">
-    <img src="~/Icons/logo.png" alt="Logo" width="220" height="220">
+<div class="text-center" style="margin-top: 50px;">
+    <!-- Adjusted margin-top -->
+    <img src="~/Icons/people.png" alt="logo.png" width="400" height="400">
 </div>
-
-<div class="text-center" style="display: flex; justify-content: center; align-items: center;">
-    <img src="~/Icons/lamp.ico" alt="Lamp">
-    <img src="~/Icons/case.ico" alt="Case">
-    <img src="~/Icons/laptop.ico" alt="Laptop">
-</div>
-
-
 @if (User.Identity.IsAuthenticated)
 {
     <div id="chat-container" class="position-fixed bottom-1 end-0 p-3" style="max-width: 300px; z-index: 1030; bottom: 125px;">
@@ -135,7 +127,7 @@ function fetchMessages(contactId) {
                 var userId = $('#currentUserId').val();
                 var messageClass = message.senderId === userId ? 'sent' : 'received';
                 var alignmentStyle = message.senderId === userId ? 'text-align: right;' : 'text-align: left;';
-                var backgroundColor = message.senderId === userId ? 'background-color: #00ff84; color: white;' : 'background-color: #007bff;';
+                var backgroundColor = message.senderId === userId ? 'background-color: #90EE90; color: white;' : 'background-color: #E0FFFF;';
                 
                 // Construct the message content with sender's FirstName
                 var messageContent = message.senderFirstName + ": " + message.content;

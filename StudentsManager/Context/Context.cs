@@ -24,12 +24,6 @@ public class Context : IdentityDbContext<ApplicationUser>
             .WithOne()
             .HasForeignKey<Teacher>(t => t.ApplicationUserId);
 
-        modelBuilder.Entity<Address>()
-            .HasOne<Teacher>(a => a.Teacher)
-            .WithMany()
-            .HasForeignKey(a => a.TeacherId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         modelBuilder.Entity<Message>()
             .HasOne<ApplicationUser>(m => m.Sender)
             .WithMany()
@@ -46,6 +40,5 @@ public class Context : IdentityDbContext<ApplicationUser>
 
     public DbSet<Student> Students { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
-    public DbSet<Address> Addresses { get; set; }
     public DbSet<Message> Messages { get; set; }
 }
