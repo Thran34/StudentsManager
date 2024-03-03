@@ -1,0 +1,26 @@
+@model StudentsManager.ViewModel.CreateClassGroupViewModel
+
+@{
+    ViewData["Title"] = "Create Class Group";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="classGroupName">Class Group Name</label>
+        <input type="text" asp-for="Name" class="form-control" id="classGroupName" placeholder="Enter class group name">
+    </div>
+    <div class="form-group">
+        <label for="selectedStudents">Select Students</label>
+        <select asp-for="SelectedStudentIds" asp-items="Model.UnassignedStudentSelectList" class="form-control" id="selectedStudents" multiple="multiple">
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="selectedTeacher">Select Teacher</label>
+        <select asp-for="SelectedTeacherId" asp-items="@Model.AvailableTeacherSelectList" class="form-control" id="selectedTeacher">
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Class Group</button>
+</form>

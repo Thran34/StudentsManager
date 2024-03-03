@@ -23,6 +23,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/ClassGroups/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3NHcm91cHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/ClassGroups/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3NHcm91cHMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/ClassGroups/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3NHcm91cHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/ClassGroups/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xhc3NHcm91cHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

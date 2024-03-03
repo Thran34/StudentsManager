@@ -1,0 +1,42 @@
+@model IEnumerable<StudentsManager.Models.ClassGroup>
+<h2>Select a Class Group</h2>
+
+<select id="classGroupSelect" class="form-control" onchange="location = this.value;">
+    <option value="">-- Select a Class Group --</option>
+    @foreach (var classGroup in Model)
+    {
+        <option value="@Url.Action("Details", "ClassGroups", new { id = classGroup.ClassGroupId })">@classGroup.Name</option>
+    }
+</select>
+<a href="@Url.Action("Create", "ClassGroups")" class="btn btn-primary mt-3">Create New Class Group</a>
+
+@foreach (var classGroup in Model)
+{
+    @if (classGroup.LessonPlans.Any())
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @foreach (var dayOfWeek in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(d => d >= DayOfWeek.Monday && d <= DayOfWeek.Friday))
+                {
+                    <td>
+                        @foreach (var plan in classGroup.LessonPlans.Where(p => p.DayOfWeek == dayOfWeek))
+                        {
+                            <div>@plan.Subject - @plan.Description</div>
+                        }
+                    </td>
+                }
+            </tr>
+            </tbody>
+        </table>
+    }
+}
