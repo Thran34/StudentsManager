@@ -48,16 +48,10 @@ public class Context : IdentityDbContext<ApplicationUser>
             .HasForeignKey(s => s.ClassGroupId);
 
         modelBuilder.Entity<LessonPlan>()
-            .HasOne(lp => lp.Teacher)
-            .WithMany(t => t.LessonPlans)
-            .HasForeignKey(lp => lp.TeacherId);
-
-        modelBuilder.Entity<LessonPlan>()
             .HasOne(lp => lp.ClassGroup)
             .WithMany(cg => cg.LessonPlans)
             .HasForeignKey(lp => lp.ClassGroupId);
     }
-
 
     public DbSet<Student> Students { get; set; }
     public DbSet<Teacher> Teachers { get; set; }

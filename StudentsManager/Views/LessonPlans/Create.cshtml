@@ -1,0 +1,42 @@
+@model StudentsManager.ViewModel.CreateLessonPlanViewModel
+
+@{
+    ViewData["Title"] = "Create Lesson Plan";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="SelectedClassGroupId">Class Group</label>
+        <select asp-for="SelectedClassGroupId" class="form-control" asp-items="@Model.ClassGroups"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DayOfWeek">Day of Week</label>
+        <select asp-for="DayOfWeek" class="form-control" asp-items="@Html.GetEnumSelectList<DayOfWeek>()"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Subject">Subject</label>
+        <input asp-for="Subject" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartHour">Start Hour</label>
+        <input asp-for="StartHour" type="hidden"/>
+        @Model.StartHour:00
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

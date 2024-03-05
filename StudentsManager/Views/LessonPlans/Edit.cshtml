@@ -1,0 +1,42 @@
+@model StudentsManager.ViewModel.EditLessonPlanViewModel
+
+@{
+    ViewData["Title"] = "Edit Lesson Plan";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="LessonPlanId"/>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="SelectedClassGroupId">Class Group</label>
+        <select asp-for="SelectedClassGroupId" class="form-control" asp-items="@Model.ClassGroups"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DayOfWeek">Day of Week</label>
+        <select asp-for="DayOfWeek" class="form-control" asp-items="@Html.GetEnumSelectList<DayOfWeek>()"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Subject">Subject</label>
+        <input asp-for="Subject" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartHour">Start Hour</label>
+        <input asp-for="StartHour" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

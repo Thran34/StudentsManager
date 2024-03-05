@@ -8,7 +8,6 @@ public class Teacher
     public string Age { get; set; }
     public string PhoneNumber { get; set; }
     public Classes Classes { get; set; }
-    public ICollection<LessonPlan> LessonPlans { get; set; }
     public ApplicationUser ApplicationUser { get; set; }
     public string ApplicationUserId { get; set; }
 }

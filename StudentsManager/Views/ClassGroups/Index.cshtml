@@ -1,42 +1,97 @@
 @model IEnumerable<StudentsManager.Models.ClassGroup>
-<h2>Select a Class Group</h2>
 
-<select id="classGroupSelect" class="form-control" onchange="location = this.value;">
-    <option value="">-- Select a Class Group --</option>
-    @foreach (var classGroup in Model)
-    {
-        <option value="@Url.Action("Details", "ClassGroups", new { id = classGroup.ClassGroupId })">@classGroup.Name</option>
-    }
-</select>
-<a href="@Url.Action("Create", "ClassGroups")" class="btn btn-primary mt-3">Create New Class Group</a>
+<h2>Class Groups</h2>
+<div class="mb-3">
+    <select id="classGroupSelect" class="form-control">
+        <option value="">Select a Class Group</option>
+        @foreach (var classGroup in Model)
+        {
+            <option value="@classGroup.ClassGroupId">@classGroup.Name</option>
+        }
+    </select>
+</div>
 
 @foreach (var classGroup in Model)
 {
-    @if (classGroup.LessonPlans.Any())
-    {
-        <table class="table">
+    <div id="classGroup-@classGroup.ClassGroupId" style="display: none;">
+        <h3>@classGroup.Name</h3>
+        <table class="table table-bordered">
             <thead>
             <tr>
+                <th>Time</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
                 <th>Thursday</th>
                 <th>Friday</th>
             </tr>
+            <style>
+                .lesson-slot:hover {
+                    background-color: #f0f0f0;
+                    cursor: pointer;
+                }
+            </style>
             </thead>
             <tbody>
-            <tr>
-                @foreach (var dayOfWeek in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(d => d >= DayOfWeek.Monday && d <= DayOfWeek.Friday))
-                {
-                    <td>
-                        @foreach (var plan in classGroup.LessonPlans.Where(p => p.DayOfWeek == dayOfWeek))
-                        {
-                            <div>@plan.Subject - @plan.Description</div>
-                        }
-                    </td>
-                }
-            </tr>
+            @for (var hour = 8; hour <= 16; hour++)
+            {
+                <tr>
+                    <td>@hour:00 - @(hour + 1):00</td>
+                    @foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(d => d >= DayOfWeek.Monday && d <= DayOfWeek.Friday))
+                    {
+                        // Check if there's a lesson for this classGroup, day, and hour
+                        var lessonPlan = classGroup.LessonPlans.FirstOrDefault(p => p.DayOfWeek == day && p.StartHour == hour);
+                        var isBooked = lessonPlan != null;
+                        <td class="lesson-slot"
+                            data-class-group-id="@classGroup.ClassGroupId"
+                            data-day="@day"
+                            data-hour="@hour"
+                            data-lesson-plan-id="@lessonPlan?.LessonPlanId" // Assuming LessonPlanId is available
+                            style="@(isBooked ? "background-color: #add8e6;" : "")">
+                            @if (isBooked)
+                            {
+                                <div>@lessonPlan.Subject - @lessonPlan.Description</div>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
             </tbody>
         </table>
-    }
+    </div>
 }
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <a href="@Url.Action("Create", "ClassGroups")" class="btn btn-primary mt-3">Create New Group</a>
+    </div>
+</div>
+
+<script>
+        document.getElementById('classGroupSelect').addEventListener('change', function () {
+            var selectedGroupId = this.value;
+            var allClassGroups = document.querySelectorAll('[id^="classGroup-"]');
+            allClassGroups.forEach(function(group) {
+                group.style.display = 'none';
+            });
+            if (selectedGroupId) {
+                document.getElementById('classGroup-' + selectedGroupId).style.display = 'block'; // Show selected timetable
+            }
+        });
+
+        document.querySelectorAll('.lesson-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                var lessonPlanId = this.getAttribute('data-lesson-plan-id');
+                if(lessonPlanId) {
+                    // If there's a lesson plan ID, redirect to the edit view for this lesson
+                    window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
+                } else {
+                    // Your existing logic to create a new lesson
+                    var classGroupId = this.getAttribute('data-class-group-id');
+                    var day = this.getAttribute('data-day');
+                    var hour = this.getAttribute('data-hour');
+                    window.location.href = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}`;
+                }
+            });
+        });
+    </script>

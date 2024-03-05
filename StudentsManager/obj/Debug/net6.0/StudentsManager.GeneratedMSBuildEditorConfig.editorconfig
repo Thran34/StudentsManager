@@ -47,6 +47,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/LessonPlans/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUGxhbnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/LessonPlans/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUGxhbnMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
