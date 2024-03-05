@@ -6,7 +6,17 @@ public class LessonPlan
     public int ClassGroupId { get; set; }
     public ClassGroup ClassGroup { get; set; }
     public DayOfWeek DayOfWeek { get; set; }
-    public string Subject { get; set; }
     public string Description { get; set; }
     public int StartHour { get; set; }
+    public Subject Subject { get; set; }
+}
+
+public enum Subject
+{
+    Math,
+    IT,
+    PE,
+    Science,
+    History,
+    English
 }

@@ -9,18 +9,24 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="classGroupName">Class Group Name</label>
-        <input type="text" asp-for="Name" class="form-control" id="classGroupName" placeholder="Enter class group name">
+        <label asp-for="Name">Class Group Name</label>
+        <input asp-for="Name" class="form-control" id="classGroupName" placeholder="Enter class group name">
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label for="selectedStudents">Select Students</label>
+        <label asp-for="SelectedStudentIds">Select Students</label>
         <select asp-for="SelectedStudentIds" asp-items="Model.UnassignedStudentSelectList" class="form-control" id="selectedStudents" multiple="multiple">
         </select>
+        <span asp-validation-for="SelectedStudentIds" class="text-danger"></span> <!-- Display validation message for students -->
     </div>
     <div class="form-group">
-        <label for="selectedTeacher">Select Teacher</label>
+        <label asp-for="SelectedTeacherId">Select Teacher</label>
         <select asp-for="SelectedTeacherId" asp-items="@Model.AvailableTeacherSelectList" class="form-control" id="selectedTeacher">
         </select>
+        <span asp-validation-for="SelectedTeacherId" class="text-danger"></span> <!-- Display validation message for teacher -->
     </div>
+
     <button type="submit" class="btn btn-primary">Create Class Group</button>
 </form>
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

@@ -67,7 +67,6 @@ public class AccountController : Controller
                             LastName = model.LastName,
                             Age = model.Age,
                             PhoneNumber = model.PhoneNumber,
-                            Classes = model.Classes,
                             ApplicationUserId = user.Id
                         };
                         _context.Teachers.Add(teacher);

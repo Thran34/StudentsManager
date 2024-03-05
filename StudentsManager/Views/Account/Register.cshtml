@@ -58,10 +58,6 @@
             <input asp-for="PhoneNumber" class="form-control"/>
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Classes" class="control-label"></label>
-            <select asp-for="Classes" class="form-control" asp-items="Html.GetEnumSelectList<Classes>()"></select>
-        </div>
 
         <button type="submit" class="btn btn-primary">Register</button>
     </form>

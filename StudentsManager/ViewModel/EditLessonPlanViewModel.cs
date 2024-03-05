@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
+using StudentsManager.Models;
 
 namespace StudentsManager.ViewModel;
 
@@ -11,7 +12,7 @@ public class EditLessonPlanViewModel
 
     [Required] public DayOfWeek DayOfWeek { get; set; }
 
-    [Required] public string Subject { get; set; }
+    [Required] public Subject Subject { get; set; }
 
     public string Description { get; set; }
 

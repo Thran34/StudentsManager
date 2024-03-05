@@ -20,5 +20,4 @@ public class RegisterViewModel
     [Required] public string Role { get; set; }
     [Required] public string Age { get; set; }
     [Required] public string PhoneNumber { get; set; }
-    [Required] public Classes Classes { get; set; }
 }

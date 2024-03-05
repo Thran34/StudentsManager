@@ -64,7 +64,6 @@ public class ClassGroupsController : Controller
         return View(viewModel);
     }
 
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateClassGroupViewModel viewModel)
@@ -72,23 +71,28 @@ public class ClassGroupsController : Controller
         var classGroup = new ClassGroup
         {
             Name = viewModel.Name
-            // Initialize other properties as necessary
         };
 
+        if (_context.ClassGroups.Any(x => x.Name == viewModel.Name))
+        {
+            ModelState.AddModelError("Name", "A class group with this name already exists.");
+            return View(viewModel);
+        }
+
+        if (viewModel.SelectedStudentIds != null && viewModel.SelectedStudentIds.Any())
+            ModelState.AddModelError("SelectedStudentIds", "Please select at least one student.");
+
+        if (viewModel.SelectedTeacherId == 0)
+            ModelState.AddModelError("SelectedTeacherId", "Please select a teacher.");
         _context.ClassGroups.Add(classGroup);
         await _context.SaveChangesAsync();
 
-        // Assign selected students to the class group
-        var selectedStudents = _context.Students.Where(s => viewModel.SelectedStudentIds.Contains(s.StudentId));
-        foreach (var student in
-                 selectedStudents)
-            student.ClassGroupId = classGroup.ClassGroupId; // Assuming you have a navigation property
+        var selectedStudents = _context.Students?.Where(s => viewModel.SelectedStudentIds.Contains(s.StudentId));
 
-        // Assign selected teacher to the class group
-        // Depending on your model, this might vary
+        foreach (var student in selectedStudents)
+            student.ClassGroupId = classGroup.ClassGroupId;
 
         await _context.SaveChangesAsync();
-
         return RedirectToAction(nameof(Index));
     }
 
