@@ -83,6 +83,12 @@
             }
             </tbody>
         </table>
+        @if (User.IsInRole("Admin"))
+        {
+            <form action="@Url.Action("Delete", "ClassGroups", new { id = classGroup.ClassGroupId })" method="post" onsubmit="return confirm('Are you sure you want to delete this group?');">
+                <button type="submit" class="btn btn-danger">Delete This Group</button>
+            </form>
+        }
     </div>
 }
 @if (User.IsInRole("Admin"))

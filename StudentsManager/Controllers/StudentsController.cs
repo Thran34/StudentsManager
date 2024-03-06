@@ -105,7 +105,7 @@ public class StudentsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Students == null) return Problem("Entity set 'Context.Students'  is null.");
+        if (_context.Students == null) return Problem("Entity set 'Context.Students' is null.");
         var student = await _context.Students.FindAsync(id);
         if (student != null) _context.Students.Remove(student);
 

@@ -108,4 +108,23 @@ public class LessonPlansController : Controller
 
         return RedirectToAction("Index", "ClassGroups");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var lessonPlan = await _context.LessonPlans.FindAsync(id);
+        if (lessonPlan != null)
+        {
+            _context.LessonPlans.Remove(lessonPlan);
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Lesson plan deleted successfully.";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Lesson plan not found.";
+        }
+
+        return RedirectToAction("Index", "ClassGroups");
+    }
 }

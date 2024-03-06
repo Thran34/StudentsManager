@@ -25,9 +25,9 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="TeacherId"/>
+    <form asp-controller="Account" asp-action="DeleteTeacher" method="post">
+        <input type="hidden" asp-for="@Model.TeacherId"/>
         <input type="submit" value="Delete" class="btn btn-danger"/> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" asp-controller="Teachers">Back to List</a>
     </form>
 </div>

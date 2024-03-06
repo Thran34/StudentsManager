@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentsManager.Models;
 using StudentsManager.ViewModel;
 
@@ -111,6 +112,44 @@ public class AccountController : Controller
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         return View(model);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteTeacher(int teacherId)
+    {
+        var teacher = await _context.Teachers
+            .Include(t => t.ClassGroups).ThenInclude(classGroup => classGroup.Students)
+            .FirstOrDefaultAsync(t => t.TeacherId == teacherId);
+
+        if (teacher == null) return NotFound();
+
+        foreach (var classGroup in teacher.ClassGroups)
+        {
+            foreach (var student in classGroup.Students) student.ClassGroupId = null;
+
+            _context.ClassGroups.Remove(classGroup);
+            await _context.SaveChangesAsync();
+        }
+
+        _context.Teachers.Remove(teacher);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Teachers");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteStudent(int studentId)
+    {
+        var student = await _context.Students.FindAsync(studentId);
+        if (student != null)
+        {
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Index", "Students");
     }
 
     public async Task<IActionResult> Logout()

@@ -112,11 +112,18 @@ public class ClassGroupsController : Controller
             return View(viewModel);
         }
 
-        if (viewModel.SelectedStudentIds != null && viewModel.SelectedStudentIds.Any())
+        if (viewModel.SelectedStudentIds == null || !viewModel.SelectedStudentIds.Any())
+        {
             ModelState.AddModelError("SelectedStudentIds", "Please select at least one student.");
+            return View(viewModel);
+        }
 
         if (viewModel.SelectedTeacherId == 0)
+        {
             ModelState.AddModelError("SelectedTeacherId", "Please select a teacher.");
+            return View(viewModel);
+        }
+
         _context.ClassGroups.Add(classGroup);
         await _context.SaveChangesAsync();
 
@@ -167,6 +174,25 @@ public class ClassGroupsController : Controller
         }
 
         return View(classGroup);
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var classGroup = await _context.ClassGroups
+            .Include(cg => cg.Students)
+            .FirstOrDefaultAsync(m => m.ClassGroupId == id);
+
+        if (classGroup == null) return NotFound();
+
+        foreach (var student in classGroup.Students) student.ClassGroupId = null;
+
+        _context.ClassGroups.Remove(classGroup);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
     }
 
     private bool ClassGroupExists(int id)

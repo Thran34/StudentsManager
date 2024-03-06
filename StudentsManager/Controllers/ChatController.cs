@@ -19,7 +19,10 @@ public class ChatController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
-        var users = await _userManager.Users.ToListAsync();
+        var currentUserId = _userManager.GetUserId(User);
+        var users = await _userManager.Users
+            .Where(u => u.Id != currentUserId)
+            .ToListAsync();
         return Json(users.ToList());
     }
 

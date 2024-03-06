@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Graphic\"/>
         <Folder Include="wwwroot\Icons\"/>
     </ItemGroup>
 

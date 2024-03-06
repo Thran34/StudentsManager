@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Security.Claims
 @{
     ViewData["Title"] = "Home Page";
@@ -30,7 +29,6 @@
 </div>
 
 <div class="text-center" style="margin-top: 50px;">
-    <!-- Adjusted margin-top -->
     <img src="~/Icons/people.png" alt="logo.png" width="400" height="400">
 </div>
 @if (User.Identity.IsAuthenticated)
@@ -121,8 +119,6 @@ $("#chat-form").submit(function(e) {
     });
 });
 
-
-
 function fetchMessages(contactId) {
     $.ajax({
         url: `/Chat/GetMessages?contactId=${contactId}`,
@@ -132,14 +128,12 @@ function fetchMessages(contactId) {
             chatMessages.empty();
             messages.forEach(function(message) {
                 var userId = $('#currentUserId').val();
-                var messageClass = message.senderId === userId ? 'sent' : 'received';
                 var alignmentStyle = message.senderId === userId ? 'text-align: right;' : 'text-align: left;';
                 var backgroundColor = message.senderId === userId ? 'background-color: #90EE90; color: white;' : 'background-color: #E0FFFF;';
                 var messageContent = message.senderFirstName + ": " + message.content;
                 var listItem = $(`<li class="list-group-item text-dark" style="${alignmentStyle} ${backgroundColor}"></li>`).text(messageContent);
                 chatMessages.append(listItem);
             });
-            // Scroll to the bottom of the chat messages
             chatMessages.scrollTop(chatMessages[0].scrollHeight);
         }
     });
