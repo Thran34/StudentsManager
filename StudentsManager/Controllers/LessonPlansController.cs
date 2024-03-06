@@ -32,7 +32,6 @@ public class LessonPlansController : Controller
         return View(viewModel);
     }
 
-
     // POST: LessonPlans/Create
     [HttpPost]
     [ValidateAntiForgeryToken]

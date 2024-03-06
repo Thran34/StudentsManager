@@ -23,7 +23,8 @@ public class Context : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Student>()
             .HasOne(s => s.ClassGroup)
             .WithMany(cg => cg.Students)
-            .HasForeignKey(s => s.ClassGroupId);
+            .HasForeignKey(s => s.ClassGroupId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Teacher>()
             .HasOne<ApplicationUser>(t => t.ApplicationUser)
@@ -51,6 +52,12 @@ public class Context : IdentityDbContext<ApplicationUser>
             .HasOne(lp => lp.ClassGroup)
             .WithMany(cg => cg.LessonPlans)
             .HasForeignKey(lp => lp.ClassGroupId);
+
+        modelBuilder.Entity<Teacher>()
+            .HasMany(t => t.ClassGroups)
+            .WithOne(cg => cg.Teacher)
+            .HasForeignKey(cg => cg.TeacherId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     public DbSet<Student> Students { get; set; }

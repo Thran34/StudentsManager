@@ -25,6 +25,7 @@ public class ClassGroupsController : Controller
     {
         var user = await _userManager.GetUserAsync(User);
         var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+        var isStudent = await _userManager.IsInRoleAsync(user, "Student");
 
         List<ClassGroup> classGroups;
 
@@ -34,11 +35,20 @@ public class ClassGroupsController : Controller
                 .Include(cg => cg.LessonPlans)
                 .ToListAsync();
         }
-        else
+        else if (isStudent)
         {
             var userId = _userManager.GetUserId(User);
             classGroups = await _context.ClassGroups
                 .Where(cg => cg.Students.Any(s => s.ApplicationUserId == userId))
+                .Include(cg => cg.LessonPlans)
+                .ToListAsync();
+        }
+
+        else
+        {
+            var userId = _userManager.GetUserId(User);
+            classGroups = await _context.ClassGroups
+                .Where(cg => cg.Teacher.ApplicationUserId == userId)
                 .Include(cg => cg.LessonPlans)
                 .ToListAsync();
         }
@@ -92,7 +102,8 @@ public class ClassGroupsController : Controller
     {
         var classGroup = new ClassGroup
         {
-            Name = viewModel.Name
+            Name = viewModel.Name,
+            TeacherId = viewModel.SelectedTeacherId
         };
 
         if (_context.ClassGroups.Any(x => x.Name == viewModel.Name))

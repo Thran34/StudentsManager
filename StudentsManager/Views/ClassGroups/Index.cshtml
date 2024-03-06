@@ -27,9 +27,15 @@
                 <th>Friday</th>
             </tr>
             <style>
-                .lesson-slot:hover {
-                    background-color: #f0f0f0;
-                    cursor: pointer;
+                .Math { background-color: yellow; }
+                    .IT { background-color: blue; }
+                    .PE { background-color: red; }
+                    .Science { background-color: green; }
+                    .History { background-color: brown; }
+                    .English { background-color: purple; }
+                    .lesson-slot:hover {
+                        background-color: #f0f0f0;
+                        cursor: pointer;
                 }
             </style>
             </thead>
@@ -38,23 +44,41 @@
             {
                 <tr>
                     <td>@hour:00 - @(hour + 1):00</td>
+                    @{
+                        var backgroundColor = "";
+                    }
                     @foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(d => d >= DayOfWeek.Monday && d <= DayOfWeek.Friday))
                     {
-                        // Check if there's a lesson for this classGroup, day, and hour
                         var lessonPlan = classGroup.LessonPlans.FirstOrDefault(p => p.DayOfWeek == day && p.StartHour == hour);
                         var isBooked = lessonPlan != null;
+                        if (isBooked)
+                        {
+                            backgroundColor = lessonPlan.Subject.ToString() switch
+                            {
+                                "Math" => "yellow",
+                                "IT" => "blue",
+                                "PE" => "red",
+                                "Science" => "green",
+                                "History" => "brown",
+                                "English" => "purple",
+                                _ => ""
+                            };
+                        }
+
+                        var subjectClass = isBooked ? backgroundColor : "";
                         <td class="lesson-slot"
+                            style="background-color: @subjectClass;"
                             data-class-group-id="@classGroup.ClassGroupId"
                             data-day="@day"
                             data-hour="@hour"
-                            data-lesson-plan-id="@lessonPlan?.LessonPlanId"
-                            style="@(isBooked ? "background-color: #add8e6;" : "")">
+                            data-lesson-plan-id="@lessonPlan?.LessonPlanId">
                             @if (isBooked)
                             {
                                 <div>@lessonPlan.Subject - @lessonPlan.Description</div>
                             }
                         </td>
                     }
+
                 </tr>
             }
             </tbody>
@@ -78,7 +102,7 @@
                 group.style.display = 'none';
             });
             if (selectedGroupId) {
-                document.getElementById('classGroup-' + selectedGroupId).style.display = 'block'; // Show selected timetable
+                document.getElementById('classGroup-' + selectedGroupId).style.display = 'block';
             }
         });
         
@@ -92,15 +116,12 @@
                           var day = this.getAttribute('data-day');
                           var hour = this.getAttribute('data-hour');
           
-                          // Redirect to edit only if there's a lesson plan ID and the user is an admin
                           if (lessonPlanId && isAdmin) {
                               window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
                           }
-                          // Allow creating a new lesson for empty slots without a lessonPlanId
                           else if (!lessonPlanId && classGroupId && day && hour && isAdmin) {
                               window.location.href = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}`;
                           }
-                          // Do nothing for clicks on empty slots without class group, day, and hour attributes
                       });
                   });
               });
