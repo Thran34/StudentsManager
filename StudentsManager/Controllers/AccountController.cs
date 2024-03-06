@@ -76,10 +76,8 @@ public class AccountController : Controller
 
                     return RedirectToAction("index", "home");
                 }
-                else
-                {
-                    foreach (var error in roleResult.Errors) ModelState.AddModelError("", error.Description);
-                }
+
+                foreach (var error in roleResult.Errors) ModelState.AddModelError("", error.Description);
             }
 
             foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
@@ -107,15 +105,11 @@ public class AccountController : Controller
         {
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            else
-                return RedirectToAction("index", "home");
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View(model);
+
+            return RedirectToAction("index", "home");
         }
 
+        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         return View(model);
     }
 

@@ -7,7 +7,7 @@ using StudentsManager.ViewModel;
 
 namespace StudentsManager.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class LessonPlansController : Controller
 {
     private readonly Context.Context _context;

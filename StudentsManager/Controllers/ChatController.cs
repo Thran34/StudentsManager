@@ -85,7 +85,6 @@ public class ChatController : Controller
         return Json(messages);
     }
 
-
     [HttpPost]
     public async Task<IActionResult> MarkMessagesAsRead([FromBody] List<int> messageIds)
     {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,20 +8,41 @@ using StudentsManager.ViewModel;
 
 namespace StudentsManager.Controllers;
 
-[Authorize(Roles = "Admin,Teacher")]
+[Authorize]
 public class ClassGroupsController : Controller
 {
     private readonly Context.Context _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public ClassGroupsController(Context.Context context)
+    public ClassGroupsController(Context.Context context, UserManager<ApplicationUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     // GET: ClassGroups
     public async Task<IActionResult> Index()
     {
-        var classGroups = await _context.ClassGroups.Include(cg => cg.LessonPlans).ToListAsync();
+        var user = await _userManager.GetUserAsync(User);
+        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+        List<ClassGroup> classGroups;
+
+        if (isAdmin)
+        {
+            classGroups = await _context.ClassGroups
+                .Include(cg => cg.LessonPlans)
+                .ToListAsync();
+        }
+        else
+        {
+            var userId = _userManager.GetUserId(User);
+            classGroups = await _context.ClassGroups
+                .Where(cg => cg.Students.Any(s => s.ApplicationUserId == userId))
+                .Include(cg => cg.LessonPlans)
+                .ToListAsync();
+        }
+
         return View(classGroups);
     }
 
@@ -108,7 +130,7 @@ public class ClassGroupsController : Controller
         return View(classGroup);
     }
 
-// POST: ClassGroups/Edit/5
+    // POST: ClassGroups/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("ClassGroupId,Name")] ClassGroup classGroup)

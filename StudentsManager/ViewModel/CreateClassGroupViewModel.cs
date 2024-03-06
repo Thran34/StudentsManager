@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
-using StudentsManager.Models;
 
 namespace StudentsManager.ViewModel;
 

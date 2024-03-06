@@ -1,6 +1,7 @@
 @model IEnumerable<StudentsManager.Models.ClassGroup>
 
 <h2>Class Groups</h2>
+
 <div class="mb-3">
     <select id="classGroupSelect" class="form-control">
         <option value="">Select a Class Group</option>
@@ -60,12 +61,14 @@
         </table>
     </div>
 }
-
-<div class="row">
-    <div class="col-md-12 text-right">
-        <a href="@Url.Action("Create", "ClassGroups")" class="btn btn-primary mt-3">Create New Group</a>
+@if (User.IsInRole("Admin"))
+{
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a href="@Url.Action("Create", "ClassGroups")" class="btn btn-primary mt-3">Create New Group</a>
+        </div>
     </div>
-</div>
+}
 
 <script>
         document.getElementById('classGroupSelect').addEventListener('change', function () {
@@ -78,20 +81,27 @@
                 document.getElementById('classGroup-' + selectedGroupId).style.display = 'block'; // Show selected timetable
             }
         });
-
-        document.querySelectorAll('.lesson-slot').forEach(slot => {
-            slot.addEventListener('click', function() {
-                var lessonPlanId = this.getAttribute('data-lesson-plan-id');
-                if(lessonPlanId) {
-                    // If there's a lesson plan ID, redirect to the edit view for this lesson
-                    window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
-                } else {
-                    // Your existing logic to create a new lesson
-                    var classGroupId = this.getAttribute('data-class-group-id');
-                    var day = this.getAttribute('data-day');
-                    var hour = this.getAttribute('data-hour');
-                    window.location.href = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}`;
-                }
-            });
-        });
-    </script>
+        
+           document.addEventListener("DOMContentLoaded", function() {
+                  var isAdmin = '@User.IsInRole("Admin")' === 'True' ? true : false;
+          
+                  document.querySelectorAll('.lesson-slot').forEach(slot => {
+                      slot.addEventListener('click', function() {
+                          var lessonPlanId = this.getAttribute('data-lesson-plan-id');
+                          var classGroupId = this.getAttribute('data-class-group-id');
+                          var day = this.getAttribute('data-day');
+                          var hour = this.getAttribute('data-hour');
+          
+                          // Redirect to edit only if there's a lesson plan ID and the user is an admin
+                          if (lessonPlanId && isAdmin) {
+                              window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
+                          }
+                          // Allow creating a new lesson for empty slots without a lessonPlanId
+                          else if (!lessonPlanId && classGroupId && day && hour && isAdmin) {
+                              window.location.href = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}`;
+                          }
+                          // Do nothing for clicks on empty slots without class group, day, and hour attributes
+                      });
+                  });
+              });
+          </script>
