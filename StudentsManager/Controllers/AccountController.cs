@@ -114,43 +114,52 @@ public class AccountController : Controller
         return View(model);
     }
 
-    [HttpPost]
-    [Authorize(Roles = "Admin")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteTeacher(int teacherId)
     {
         var teacher = await _context.Teachers
-            .Include(t => t.ClassGroups).ThenInclude(classGroup => classGroup.Students)
+            .Include(t => t.ClassGroups)
+            .ThenInclude(cg => cg.Students)
             .FirstOrDefaultAsync(t => t.TeacherId == teacherId);
 
         if (teacher == null) return NotFound();
+        var applicationUserId = teacher.ApplicationUserId;
 
-        foreach (var classGroup in teacher.ClassGroups)
-        {
-            foreach (var student in classGroup.Students) student.ClassGroupId = null;
-
+        foreach (var classGroup in teacher.ClassGroups.ToList())
             _context.ClassGroups.Remove(classGroup);
-            await _context.SaveChangesAsync();
-        }
+
+        await _context.SaveChangesAsync();
 
         _context.Teachers.Remove(teacher);
         await _context.SaveChangesAsync();
+        var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
+        if (applicationUser != null) await _userManager.DeleteAsync(applicationUser);
 
         return RedirectToAction("Index", "Teachers");
     }
 
+
     [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteStudent(int studentId)
     {
-        var student = await _context.Students.FindAsync(studentId);
-        if (student != null)
-        {
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-        }
+        var student = await _context.Students
+            .Include(s => s.ApplicationUser)
+            .FirstOrDefaultAsync(s => s.StudentId == studentId);
+
+        if (student == null) return NotFound();
+
+        var applicationUserId = student.ApplicationUserId;
+
+        _context.Students.Remove(student);
+        await _context.SaveChangesAsync();
+
+        var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
+        if (applicationUser != null) await _userManager.DeleteAsync(applicationUser);
 
         return RedirectToAction("Index", "Students");
     }
+
 
     public async Task<IActionResult> Logout()
     {
