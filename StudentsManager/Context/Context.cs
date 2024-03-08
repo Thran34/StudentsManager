@@ -32,16 +32,17 @@ public class Context : IdentityDbContext<ApplicationUser>
             .HasForeignKey<Teacher>(t => t.ApplicationUserId);
 
         modelBuilder.Entity<Message>()
-            .HasOne<ApplicationUser>(m => m.Sender)
+            .HasOne(m => m.Receiver)
+            .WithMany()
+            .HasForeignKey(m => m.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Message>()
+            .HasOne(m => m.Sender)
             .WithMany()
             .HasForeignKey(m => m.SenderId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Message>()
-            .HasOne<ApplicationUser>(m => m.Receiver)
-            .WithMany()
-            .HasForeignKey(m => m.ReceiverId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ClassGroup>()
             .HasMany(c => c.Students)

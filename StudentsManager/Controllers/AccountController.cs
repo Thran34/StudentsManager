@@ -131,12 +131,19 @@ public class AccountController : Controller
 
         _context.Teachers.Remove(teacher);
         await _context.SaveChangesAsync();
+
+        var userMessages = await _context.Messages
+            .Where(m => m.SenderId == applicationUserId || m.ReceiverId == applicationUserId)
+            .ToListAsync();
+
+        _context.Messages.RemoveRange(userMessages);
+        await _context.SaveChangesAsync();
+
         var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
         if (applicationUser != null) await _userManager.DeleteAsync(applicationUser);
 
         return RedirectToAction("Index", "Teachers");
     }
-
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
@@ -152,6 +159,13 @@ public class AccountController : Controller
         var applicationUserId = student.ApplicationUserId;
 
         _context.Students.Remove(student);
+        await _context.SaveChangesAsync();
+
+        var userMessages = await _context.Messages
+            .Where(m => m.SenderId == applicationUserId || m.ReceiverId == applicationUserId)
+            .ToListAsync();
+
+        _context.Messages.RemoveRange(userMessages);
         await _context.SaveChangesAsync();
 
         var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
