@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Abstract;
+using StudentsManager.Abstract.Repo;
+using StudentsManager.Abstract.Service;
+using StudentsManager.Concrete.Repo;
+using StudentsManager.Concrete.Service;
 using StudentsManager.Context;
 using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Models;
@@ -23,6 +28,11 @@ public class Program
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+        // DI
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+        builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
         var app = builder.Build();
 
