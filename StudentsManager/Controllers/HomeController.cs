@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 
 namespace StudentsManager.Controllers;
@@ -9,12 +11,12 @@ namespace StudentsManager.Controllers;
 public class HomeController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
 
-    public HomeController(UserManager<ApplicationUser> userManager, Context.Context context)
+    public HomeController(UserManager<ApplicationUser> userManager, ApplicationDbContext applicationDbContext)
     {
         _userManager = userManager;
-        _context = context;
+        _applicationDbContext = applicationDbContext;
     }
 
     public async Task<IActionResult> Index()
@@ -37,7 +39,7 @@ public class HomeController : Controller
     public async Task<ApplicationUser> GetCurrentUserAsync()
     {
         var userId = _userManager.GetUserId(User);
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
         return user;
     }
 

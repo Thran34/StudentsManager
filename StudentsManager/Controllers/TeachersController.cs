@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 
 namespace StudentsManager.Controllers;
@@ -8,17 +10,17 @@ namespace StudentsManager.Controllers;
 [Authorize(Roles = "Admin")]
 public class TeachersController : Controller
 {
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
 
-    public TeachersController(Context.Context context)
+    public TeachersController(ApplicationDbContext applicationDbContext)
     {
-        _context = context;
+        _applicationDbContext = applicationDbContext;
     }
 
     // GET: Teachers
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Teachers.ToListAsync());
+        return View(await _applicationDbContext.Teachers.ToListAsync());
     }
 
     // GET: Teachers/Details/5
@@ -26,7 +28,7 @@ public class TeachersController : Controller
     {
         if (id == null) return NotFound();
 
-        var teacher = await _context.Teachers
+        var teacher = await _applicationDbContext.Teachers
             .FirstOrDefaultAsync(m => m.TeacherId == id);
         if (teacher == null) return NotFound();
 
@@ -45,8 +47,8 @@ public class TeachersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("TeacherId,FirstName,LastName,Age")] Teacher teacher)
     {
-        _context.Add(teacher);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Add(teacher);
+        await _applicationDbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
@@ -55,7 +57,7 @@ public class TeachersController : Controller
     {
         if (id == null) return NotFound();
 
-        var teacher = await _context.Teachers.FindAsync(id);
+        var teacher = await _applicationDbContext.Teachers.FindAsync(id);
         if (teacher == null) return NotFound();
         return View(teacher);
     }
@@ -70,8 +72,8 @@ public class TeachersController : Controller
 
         try
         {
-            _context.Update(teacher);
-            await _context.SaveChangesAsync();
+            _applicationDbContext.Update(teacher);
+            await _applicationDbContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -89,7 +91,7 @@ public class TeachersController : Controller
     {
         if (id == null) return NotFound();
 
-        var teacher = await _context.Teachers
+        var teacher = await _applicationDbContext.Teachers
             .FirstOrDefaultAsync(m => m.TeacherId == id);
         if (teacher == null) return NotFound();
 
@@ -102,14 +104,14 @@ public class TeachersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var teacher = await _context.Teachers.FindAsync(id);
-        _context.Teachers.Remove(teacher);
-        await _context.SaveChangesAsync();
+        var teacher = await _applicationDbContext.Teachers.FindAsync(id);
+        _applicationDbContext.Teachers.Remove(teacher);
+        await _applicationDbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool TeacherExists(int id)
     {
-        return _context.Teachers.Any(e => e.TeacherId == id);
+        return _applicationDbContext.Teachers.Any(e => e.TeacherId == id);
     }
 }

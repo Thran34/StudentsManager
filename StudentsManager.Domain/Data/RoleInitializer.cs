@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 
-namespace StudentsManager.Data;
+namespace StudentsManager.Domain.Data;
 
 public static class RoleInitializer
 {

@@ -1,3 +1,5 @@
+using StudentsManager.Domain.Models;
+
 namespace StudentsManager.Models;
 
 public class Message

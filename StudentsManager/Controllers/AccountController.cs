@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentsManager.Models;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.ViewModel;
 
 namespace StudentsManager.Controllers;
@@ -11,14 +12,14 @@ public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-        RoleManager<IdentityRole> roleManager, Context.Context context)
+        RoleManager<IdentityRole> roleManager, ApplicationDbContext applicationDbContext)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _context = context;
+        _applicationDbContext = applicationDbContext;
     }
 
     [HttpGet]
@@ -58,7 +59,7 @@ public class AccountController : Controller
                             PhoneNumber = model.PhoneNumber,
                             ApplicationUserId = user.Id
                         };
-                        _context.Students.Add(student);
+                        _applicationDbContext.Students.Add(student);
                     }
                     else if (model.Role == "Teacher")
                     {
@@ -70,10 +71,10 @@ public class AccountController : Controller
                             PhoneNumber = model.PhoneNumber,
                             ApplicationUserId = user.Id
                         };
-                        _context.Teachers.Add(teacher);
+                        _applicationDbContext.Teachers.Add(teacher);
                     }
 
-                    await _context.SaveChangesAsync();
+                    await _applicationDbContext.SaveChangesAsync();
 
                     return RedirectToAction("index", "home");
                 }
@@ -116,7 +117,7 @@ public class AccountController : Controller
 
     public async Task<IActionResult> DeleteTeacher(int teacherId)
     {
-        var teacher = await _context.Teachers
+        var teacher = await _applicationDbContext.Teachers
             .Include(t => t.ClassGroups)
             .ThenInclude(cg => cg.Students)
             .FirstOrDefaultAsync(t => t.TeacherId == teacherId);
@@ -125,19 +126,19 @@ public class AccountController : Controller
         var applicationUserId = teacher.ApplicationUserId;
 
         foreach (var classGroup in teacher.ClassGroups.ToList())
-            _context.ClassGroups.Remove(classGroup);
+            _applicationDbContext.ClassGroups.Remove(classGroup);
 
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
 
-        _context.Teachers.Remove(teacher);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Teachers.Remove(teacher);
+        await _applicationDbContext.SaveChangesAsync();
 
-        var userMessages = await _context.Messages
+        var userMessages = await _applicationDbContext.Messages
             .Where(m => m.SenderId == applicationUserId || m.ReceiverId == applicationUserId)
             .ToListAsync();
 
-        _context.Messages.RemoveRange(userMessages);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Messages.RemoveRange(userMessages);
+        await _applicationDbContext.SaveChangesAsync();
 
         var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
         if (applicationUser != null) await _userManager.DeleteAsync(applicationUser);
@@ -150,7 +151,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteStudent(int studentId)
     {
-        var student = await _context.Students
+        var student = await _applicationDbContext.Students
             .Include(s => s.ApplicationUser)
             .FirstOrDefaultAsync(s => s.StudentId == studentId);
 
@@ -158,15 +159,15 @@ public class AccountController : Controller
 
         var applicationUserId = student.ApplicationUserId;
 
-        _context.Students.Remove(student);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Students.Remove(student);
+        await _applicationDbContext.SaveChangesAsync();
 
-        var userMessages = await _context.Messages
+        var userMessages = await _applicationDbContext.Messages
             .Where(m => m.SenderId == applicationUserId || m.ReceiverId == applicationUserId)
             .ToListAsync();
 
-        _context.Messages.RemoveRange(userMessages);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Messages.RemoveRange(userMessages);
+        await _applicationDbContext.SaveChangesAsync();
 
         var applicationUser = await _userManager.FindByIdAsync(applicationUserId);
         if (applicationUser != null) await _userManager.DeleteAsync(applicationUser);

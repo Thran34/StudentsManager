@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 using StudentsManager.ViewModel;
 
@@ -11,12 +13,13 @@ namespace StudentsManager.Controllers;
 [Authorize]
 public class ClassGroupsController : Controller
 {
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public ClassGroupsController(Context.Context context, UserManager<ApplicationUser> userManager)
+    public ClassGroupsController(ApplicationDbContext applicationDbContext,
+        UserManager<ApplicationUser> userManager)
     {
-        _context = context;
+        _applicationDbContext = applicationDbContext;
         _userManager = userManager;
     }
 
@@ -31,14 +34,14 @@ public class ClassGroupsController : Controller
 
         if (isAdmin)
         {
-            classGroups = await _context.ClassGroups
+            classGroups = await _applicationDbContext.ClassGroups
                 .Include(cg => cg.LessonPlans)
                 .ToListAsync();
         }
         else if (isStudent)
         {
             var userId = _userManager.GetUserId(User);
-            classGroups = await _context.ClassGroups
+            classGroups = await _applicationDbContext.ClassGroups
                 .Where(cg => cg.Students.Any(s => s.ApplicationUserId == userId))
                 .Include(cg => cg.LessonPlans)
                 .ToListAsync();
@@ -47,7 +50,7 @@ public class ClassGroupsController : Controller
         else
         {
             var userId = _userManager.GetUserId(User);
-            classGroups = await _context.ClassGroups
+            classGroups = await _applicationDbContext.ClassGroups
                 .Where(cg => cg.Teacher.ApplicationUserId == userId)
                 .Include(cg => cg.LessonPlans)
                 .ToListAsync();
@@ -61,7 +64,7 @@ public class ClassGroupsController : Controller
     {
         if (id == null) return NotFound();
 
-        var classGroup = await _context.ClassGroups
+        var classGroup = await _applicationDbContext.ClassGroups
             .Include(cg => cg.LessonPlans)
             .FirstOrDefaultAsync(m => m.ClassGroupId == id);
 
@@ -75,14 +78,14 @@ public class ClassGroupsController : Controller
         var viewModel = new CreateClassGroupViewModel
         {
             UnassignedStudentSelectList = new SelectList(
-                await _context.Students
+                await _applicationDbContext.Students
                     .Where(s => s.ClassGroupId == null)
                     .Select(s => new { s.StudentId, FullName = s.FirstName + " " + s.LastName })
                     .ToListAsync(),
                 "StudentId",
                 "FullName"),
             AvailableTeacherSelectList = new SelectList(
-                await _context.Teachers
+                await _applicationDbContext.Teachers
                     .Select(t => new
                     {
                         t.TeacherId,
@@ -106,7 +109,7 @@ public class ClassGroupsController : Controller
             TeacherId = viewModel.SelectedTeacherId
         };
 
-        if (_context.ClassGroups.Any(x => x.Name == viewModel.Name))
+        if (_applicationDbContext.ClassGroups.Any(x => x.Name == viewModel.Name))
         {
             ModelState.AddModelError("Name", "A class group with this name already exists.");
             return View(viewModel);
@@ -124,15 +127,16 @@ public class ClassGroupsController : Controller
             return View(viewModel);
         }
 
-        _context.ClassGroups.Add(classGroup);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.ClassGroups.Add(classGroup);
+        await _applicationDbContext.SaveChangesAsync();
 
-        var selectedStudents = _context.Students?.Where(s => viewModel.SelectedStudentIds.Contains(s.StudentId));
+        var selectedStudents =
+            _applicationDbContext.Students?.Where(s => viewModel.SelectedStudentIds.Contains(s.StudentId));
 
         foreach (var student in selectedStudents)
             student.ClassGroupId = classGroup.ClassGroupId;
 
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
@@ -142,7 +146,7 @@ public class ClassGroupsController : Controller
     {
         if (id == null) return NotFound();
 
-        var classGroup = await _context.ClassGroups.FindAsync(id);
+        var classGroup = await _applicationDbContext.ClassGroups.FindAsync(id);
         if (classGroup == null) return NotFound();
 
         return View(classGroup);
@@ -159,8 +163,8 @@ public class ClassGroupsController : Controller
         {
             try
             {
-                _context.Update(classGroup);
-                await _context.SaveChangesAsync();
+                _applicationDbContext.Update(classGroup);
+                await _applicationDbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -181,7 +185,7 @@ public class ClassGroupsController : Controller
     {
         if (id == null) return NotFound();
 
-        var classGroup = await _context.ClassGroups
+        var classGroup = await _applicationDbContext.ClassGroups
             .Include(cg => cg.Students)
             .FirstOrDefaultAsync(m => m.ClassGroupId == id);
 
@@ -189,14 +193,14 @@ public class ClassGroupsController : Controller
 
         foreach (var student in classGroup.Students) student.ClassGroupId = null;
 
-        _context.ClassGroups.Remove(classGroup);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.ClassGroups.Remove(classGroup);
+        await _applicationDbContext.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
     }
 
     private bool ClassGroupExists(int id)
     {
-        return _context.ClassGroups.Any(e => e.ClassGroupId == id);
+        return _applicationDbContext.ClassGroups.Any(e => e.ClassGroupId == id);
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 using StudentsManager.ViewModel;
 
@@ -10,11 +12,11 @@ namespace StudentsManager.Controllers;
 [Authorize(Roles = "Admin")]
 public class LessonPlansController : Controller
 {
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
 
-    public LessonPlansController(Context.Context context)
+    public LessonPlansController(ApplicationDbContext applicationDbContext)
     {
-        _context = context;
+        _applicationDbContext = applicationDbContext;
     }
 
     // GET: LessonPlans/Create
@@ -22,7 +24,7 @@ public class LessonPlansController : Controller
     {
         var viewModel = new CreateLessonPlanViewModel
         {
-            ClassGroups = _context.ClassGroups.Include(cg => cg.LessonPlans)
+            ClassGroups = _applicationDbContext.ClassGroups.Include(cg => cg.LessonPlans)
                 .Select(c => new SelectListItem { Value = c.ClassGroupId.ToString(), Text = c.Name }).ToList(),
             SelectedClassGroupId = classGroupId ?? 0,
             DayOfWeek = day ?? DayOfWeek.Monday,
@@ -46,8 +48,8 @@ public class LessonPlansController : Controller
             StartHour = viewModel.StartHour
         };
 
-        _context.Add(lessonPlan);
-        await _context.SaveChangesAsync();
+        _applicationDbContext.Add(lessonPlan);
+        await _applicationDbContext.SaveChangesAsync();
 
         return RedirectToAction("Index", "ClassGroups");
     }
@@ -56,7 +58,7 @@ public class LessonPlansController : Controller
     {
         if (lessonPlanId == null) return NotFound();
 
-        var lessonPlan = await _context.LessonPlans
+        var lessonPlan = await _applicationDbContext.LessonPlans
             .Include(lp => lp.ClassGroup)
             .FirstOrDefaultAsync(lp => lp.LessonPlanId == lessonPlanId);
 
@@ -70,7 +72,7 @@ public class LessonPlansController : Controller
             Subject = lessonPlan.Subject,
             Description = lessonPlan.Description,
             StartHour = lessonPlan.StartHour,
-            ClassGroups = _context.ClassGroups.Select(c => new SelectListItem
+            ClassGroups = _applicationDbContext.ClassGroups.Select(c => new SelectListItem
             {
                 Value = c.ClassGroupId.ToString(),
                 Text = c.Name
@@ -84,7 +86,7 @@ public class LessonPlansController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(EditLessonPlanViewModel viewModel)
     {
-        var lessonPlan = await _context.LessonPlans.FindAsync(viewModel.LessonPlanId);
+        var lessonPlan = await _applicationDbContext.LessonPlans.FindAsync(viewModel.LessonPlanId);
         if (lessonPlan == null) return NotFound();
 
         lessonPlan.ClassGroupId = viewModel.SelectedClassGroupId;
@@ -95,12 +97,12 @@ public class LessonPlansController : Controller
 
         try
         {
-            _context.Update(lessonPlan);
-            await _context.SaveChangesAsync();
+            _applicationDbContext.Update(lessonPlan);
+            await _applicationDbContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!_context.LessonPlans.Any(lp => lp.LessonPlanId == viewModel.LessonPlanId))
+            if (!_applicationDbContext.LessonPlans.Any(lp => lp.LessonPlanId == viewModel.LessonPlanId))
                 return NotFound();
             else
                 throw;
@@ -113,11 +115,11 @@ public class LessonPlansController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id)
     {
-        var lessonPlan = await _context.LessonPlans.FindAsync(id);
+        var lessonPlan = await _applicationDbContext.LessonPlans.FindAsync(id);
         if (lessonPlan != null)
         {
-            _context.LessonPlans.Remove(lessonPlan);
-            await _context.SaveChangesAsync();
+            _applicationDbContext.LessonPlans.Remove(lessonPlan);
+            await _applicationDbContext.SaveChangesAsync();
             TempData["SuccessMessage"] = "Lesson plan deleted successfully.";
         }
         else

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Context;
+using StudentsManager.Domain.Models;
 using StudentsManager.Models;
 
 namespace StudentsManager.Controllers;
@@ -8,12 +10,12 @@ namespace StudentsManager.Controllers;
 public class ChatController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly Context.Context _context;
+    private readonly ApplicationDbContext _applicationDbContext;
 
-    public ChatController(UserManager<ApplicationUser> userManager, Context.Context context)
+    public ChatController(UserManager<ApplicationUser> userManager, ApplicationDbContext applicationDbContext)
     {
         _userManager = userManager;
-        _context = context;
+        _applicationDbContext = applicationDbContext;
     }
 
     [HttpGet]
@@ -30,7 +32,7 @@ public class ChatController : Controller
     public async Task<IActionResult> SendMessage(string receiverId, string content)
     {
         var senderId = _userManager.GetUserId(User);
-        using (var transaction = _context.Database.BeginTransaction())
+        using (var transaction = _applicationDbContext.Database.BeginTransaction())
         {
             try
             {
@@ -42,8 +44,8 @@ public class ChatController : Controller
                     Timestamp = DateTime.UtcNow
                 };
 
-                _context.Messages.Add(message);
-                await _context.SaveChangesAsync();
+                _applicationDbContext.Messages.Add(message);
+                await _applicationDbContext.SaveChangesAsync();
 
                 transaction.Commit();
             }
@@ -60,7 +62,7 @@ public class ChatController : Controller
     public async Task<IActionResult> GetUnreadMessages(string receiverId)
     {
         var userId = _userManager.GetUserId(User);
-        var messages = await _context.Messages
+        var messages = await _applicationDbContext.Messages
             .Where(m => m.ReceiverId == userId && !m.IsRead)
             .ToListAsync();
 
@@ -70,7 +72,7 @@ public class ChatController : Controller
     public async Task<IActionResult> GetMessages(string contactId)
     {
         var userId = _userManager.GetUserId(User);
-        var messages = await _context.Messages
+        var messages = await _applicationDbContext.Messages
             .Where(m => (m.SenderId == userId && m.ReceiverId == contactId) ||
                         (m.SenderId == contactId && m.ReceiverId == userId))
             .Select(m => new
@@ -91,9 +93,9 @@ public class ChatController : Controller
     [HttpPost]
     public async Task<IActionResult> MarkMessagesAsRead([FromBody] List<int> messageIds)
     {
-        var messages = await _context.Messages.Where(m => messageIds.Contains(m.Id)).ToListAsync();
+        var messages = await _applicationDbContext.Messages.Where(m => messageIds.Contains(m.Id)).ToListAsync();
         foreach (var message in messages) message.IsRead = true;
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
 
         return Ok();
     }

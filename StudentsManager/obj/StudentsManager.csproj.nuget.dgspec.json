@@ -4,6 +4,65 @@
     "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/StudentsManager.csproj": {}
   },
   "projects": {
+    "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/StudentsManager.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/StudentsManager.Domain.csproj",
+        "projectName": "StudentsManager.Domain",
+        "projectPath": "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/StudentsManager.Domain.csproj",
+        "packagesPath": "/Users/andrzejjasinski/.nuget/packages/",
+        "outputPath": "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/andrzejjasinski/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.419/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/StudentsManager.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -25,7 +84,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/StudentsManager.Domain.csproj": {
+                "projectPath": "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/StudentsManager.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -54,6 +117,16 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -64,17 +137,7 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer.Design": {
               "target": "Package",
-              "version": "[2.0.0-preview1-final, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[1.1.6, )"
             },
             "Microsoft.EntityFrameworkCore.Tools.DotNet": {
               "target": "Package",

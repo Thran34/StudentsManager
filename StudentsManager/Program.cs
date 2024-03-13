@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StudentsManager.Data;
-using StudentsManager.Models;
+using StudentsManager.Context;
+using StudentsManager.Domain.Data;
+using StudentsManager.Domain.Models;
 
 namespace StudentsManager;
 
@@ -14,13 +15,13 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddDbContext<Context.Context>(options =>
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string"));
         });
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<Context.Context>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
         var app = builder.Build();
