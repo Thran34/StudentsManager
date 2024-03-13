@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "p7AgAJXWZUuq3COXlC1OMLlLaRiSM1qd+G40JdsOpg5/tHgU8p2J0Ed7S+pdLJOE+J9CODr6riAuO+lZs6KDIw==",
+  "dgSpecHash": "8yrvZOYEEgwtP77MOXScJv0poE6+KDB6zU/XGf1oSv2WA0S44uUz0/UE5HB4RlfgLhYKBqwyPPciKh2nyQftkw==",
   "success": true,
   "projectFilePath": "/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/StudentsManager.csproj",
   "expectedPackageFiles": [
+    "/Users/andrzejjasinski/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
+    "/Users/andrzejjasinski/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/6.0.0/automapper.extensions.microsoft.dependencyinjection.6.0.0.nupkg.sha512",
     "/Users/andrzejjasinski/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/andrzejjasinski/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",
     "/Users/andrzejjasinski/.nuget/packages/messagepack.annotations/2.1.152/messagepack.annotations.2.1.152.nupkg.sha512",

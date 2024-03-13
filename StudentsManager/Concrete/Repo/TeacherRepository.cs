@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
@@ -15,7 +16,10 @@ public class TeacherRepository : ITeacherRepository
 
     public async Task<Teacher> FindTeacherByIdAsync(int teacherId)
     {
-        return await _applicationDbContext.Teachers.FindAsync(teacherId);
+        return await _applicationDbContext.Teachers
+            .Include(t => t.ClassGroups)
+            .ThenInclude(cg => cg.Students)
+            .FirstOrDefaultAsync(t => t.TeacherId == teacherId);
     }
 
     public async Task RemoveTeacherAsync(Teacher teacher)

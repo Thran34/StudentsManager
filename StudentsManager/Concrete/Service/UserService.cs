@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using StudentsManager.Abstract;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
@@ -15,16 +17,18 @@ public class UserService : IUserService
     private readonly IStudentRepository _studentRepository;
     private readonly ITeacherRepository _teacherRepository;
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly IMapper _mapper;
 
     public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
         IStudentRepository studentRepository, ITeacherRepository teacherRepository,
-        ApplicationDbContext applicationDbContext)
+        ApplicationDbContext applicationDbContext, IMapper mapper)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _studentRepository = studentRepository;
         _teacherRepository = teacherRepository;
         _applicationDbContext = applicationDbContext;
+        _mapper = mapper;
     }
 
     public async Task<SignInResult> LoginUserAsync(LoginViewModel model)
@@ -42,6 +46,16 @@ public class UserService : IUserService
         var teacher = await _teacherRepository.FindTeacherByIdAsync(teacherId);
         if (teacher != null)
         {
+            foreach (var classGroup in teacher.ClassGroups.ToList())
+                _applicationDbContext.ClassGroups.Remove(classGroup);
+
+            var userMessages = await _applicationDbContext.Messages
+                .Where(m => m.SenderId == teacher.ApplicationUserId || m.ReceiverId == teacher.ApplicationUserId)
+                .ToListAsync();
+
+            _applicationDbContext.Messages.RemoveRange(userMessages);
+            await _applicationDbContext.SaveChangesAsync();
+
             await _teacherRepository.RemoveTeacherAsync(teacher);
             var user = await _userManager.FindByIdAsync(teacher.ApplicationUserId);
             if (user != null) return await _userManager.DeleteAsync(user);
@@ -55,6 +69,13 @@ public class UserService : IUserService
         var student = await _studentRepository.FindStudentByIdAsync(studentId);
         if (student != null)
         {
+            var userMessages = await _applicationDbContext.Messages
+                .Where(m => m.SenderId == student.ApplicationUserId || m.ReceiverId == student.ApplicationUserId)
+                .ToListAsync();
+
+            _applicationDbContext.Messages.RemoveRange(userMessages);
+            await _applicationDbContext.SaveChangesAsync();
+
             await _studentRepository.RemoveStudentAsync(student);
             var user = await _userManager.FindByIdAsync(student.ApplicationUserId);
             if (user != null) return await _userManager.DeleteAsync(user);
@@ -68,13 +89,7 @@ public class UserService : IUserService
         if (model == null)
             throw new ArgumentNullException(nameof(model));
 
-        var user = new ApplicationUser
-        {
-            UserName = model.Email,
-            Email = model.Email,
-            FirstName = model.FirstName,
-            LastName = model.LastName
-        };
+        var user = _mapper.Map<ApplicationUser>(model);
 
         var createUserResult = await _userManager.CreateAsync(user, model.Password);
         if (!createUserResult.Succeeded)
