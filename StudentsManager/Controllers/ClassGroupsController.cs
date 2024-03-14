@@ -1,11 +1,12 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Abstract.Service;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
-using StudentsManager.Models;
 using StudentsManager.ViewModel;
 
 namespace StudentsManager.Controllers;
@@ -14,13 +15,17 @@ namespace StudentsManager.Controllers;
 public class ClassGroupsController : Controller
 {
     private readonly ApplicationDbContext _applicationDbContext;
+    private readonly IClassGroupService _classGroupService;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IMapper _mapper;
 
     public ClassGroupsController(ApplicationDbContext applicationDbContext,
-        UserManager<ApplicationUser> userManager)
+        IClassGroupService classGroupService, UserManager<ApplicationUser> userManager, IMapper mapper)
     {
         _applicationDbContext = applicationDbContext;
+        _classGroupService = classGroupService;
         _userManager = userManager;
+        _mapper = mapper;
     }
 
     // GET: ClassGroups
@@ -30,44 +35,30 @@ public class ClassGroupsController : Controller
         var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
         var isStudent = await _userManager.IsInRoleAsync(user, "Student");
 
-        List<ClassGroup> classGroups;
-
         if (isAdmin)
         {
-            classGroups = await _applicationDbContext.ClassGroups
-                .Include(cg => cg.LessonPlans)
-                .ToListAsync();
+            var classGroups = await _classGroupService.GetAllClassGroupsAsync();
+            return View(classGroups);
         }
-        else if (isStudent)
-        {
-            var userId = _userManager.GetUserId(User);
-            classGroups = await _applicationDbContext.ClassGroups
-                .Where(cg => cg.Students.Any(s => s.ApplicationUserId == userId))
-                .Include(cg => cg.LessonPlans)
-                .ToListAsync();
-        }
-
         else
         {
             var userId = _userManager.GetUserId(User);
-            classGroups = await _applicationDbContext.ClassGroups
-                .Where(cg => cg.Teacher.ApplicationUserId == userId)
-                .Include(cg => cg.LessonPlans)
-                .ToListAsync();
-        }
+            if (isStudent)
+            {
+                var classGroup = await _classGroupService.GetStudentClassGroupByIdAsync(userId);
+                return View(new List<ClassGroup> { classGroup });
+            }
 
-        return View(classGroups);
+            var classGroups = await _classGroupService.GetTeacherClassGroupsByIdAsync(userId);
+            return View(classGroups);
+        }
     }
 
     // GET: ClassGroups/Details/5
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null) return NotFound();
-
-        var classGroup = await _applicationDbContext.ClassGroups
-            .Include(cg => cg.LessonPlans)
-            .FirstOrDefaultAsync(m => m.ClassGroupId == id);
-
+        var classGroup = await _classGroupService.GetClassGroupDetailsAsync(id.Value);
         if (classGroup == null) return NotFound();
 
         return View(classGroup);
