@@ -37,6 +37,8 @@ public class Program
         builder.Services.AddScoped<IChatService, ChatService>();
         builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
         builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
+        builder.Services.AddScoped<ILessonPlanRepository, LessonPlanRepository>();
+        builder.Services.AddScoped<ILessonPlanService, LessonPlanService>();
 
         var app = builder.Build();
 
