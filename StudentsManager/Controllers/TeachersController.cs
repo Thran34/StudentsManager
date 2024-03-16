@@ -29,6 +29,8 @@ public class TeachersController : Controller
         if (id == null) return NotFound();
 
         var teacher = await _applicationDbContext.Teachers
+            .Include(t => t.ApplicationUser)
+            .Include(t => t.ClassGroups)
             .FirstOrDefaultAsync(m => m.TeacherId == id);
         if (teacher == null) return NotFound();
 
@@ -65,22 +67,32 @@ public class TeachersController : Controller
     // POST: Teachers/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("TeacherId,FirstName,LastName,Age")] Teacher teacher)
+    public async Task<IActionResult> Edit(int id,
+        [Bind("TeacherId,FirstName,LastName,Age,PhoneNumber")] Teacher teacher)
     {
         if (id != teacher.TeacherId) return NotFound();
 
+        var teacherToUpdate = await _applicationDbContext.Teachers
+            .Include(s => s.ApplicationUser)
+            .Include(s => s.ClassGroups)
+            .FirstOrDefaultAsync(s => s.TeacherId == id);
+
+        if (teacherToUpdate == null) return NotFound();
 
         try
         {
-            _applicationDbContext.Update(teacher);
+            teacherToUpdate.FirstName = teacher.FirstName;
+            teacherToUpdate.LastName = teacher.LastName;
+            teacherToUpdate.Age = teacher.Age;
+            teacherToUpdate.PhoneNumber = teacher.PhoneNumber;
+
             await _applicationDbContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!TeacherExists(teacher.TeacherId))
+            if (!TeacherExists(teacherToUpdate.TeacherId))
                 return NotFound();
-            else
-                throw;
+            throw;
         }
 
         return RedirectToAction(nameof(Index));

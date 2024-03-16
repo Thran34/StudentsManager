@@ -31,6 +31,8 @@ public class StudentsController : Controller
         if (id == null || _applicationDbContext.Students == null) return NotFound();
 
         var student = await _applicationDbContext.Students
+            .Include(s => s.ApplicationUser)
+            .Include(s => s.ClassGroup)
             .FirstOrDefaultAsync(m => m.StudentId == id);
         if (student == null) return NotFound();
 
@@ -62,31 +64,38 @@ public class StudentsController : Controller
         return View(student);
     }
 
-    // POST: Students/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("StudentId,FirstName,LastName,Age,Teachers")] Student student)
+    public async Task<IActionResult> Edit(int id,
+        [Bind("StudentId,FirstName,LastName,Age,PhoneNumber")]
+        Student student)
     {
         if (id != student.StudentId) return NotFound();
 
+        var studentToUpdate = await _applicationDbContext.Students
+            .Include(s => s.ApplicationUser)
+            .Include(s => s.ClassGroup)
+            .FirstOrDefaultAsync(s => s.StudentId == id);
+
+        if (studentToUpdate == null) return NotFound();
+
         try
         {
-            _applicationDbContext.Update(student);
+            studentToUpdate.FirstName = student.FirstName;
+            studentToUpdate.LastName = student.LastName;
+            studentToUpdate.Age = student.Age;
+            studentToUpdate.PhoneNumber = student.PhoneNumber;
+
             await _applicationDbContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
             if (!StudentExists(student.StudentId))
                 return NotFound();
-
             throw;
         }
 
         return RedirectToAction(nameof(Index));
-
-        return View(student);
     }
 
     // GET: Students/Delete/5
