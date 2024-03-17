@@ -63,10 +63,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Students/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Students/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -81,10 +77,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Students/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudHMvSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Teachers/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGVhY2hlcnMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Views/Teachers/Delete.cshtml]

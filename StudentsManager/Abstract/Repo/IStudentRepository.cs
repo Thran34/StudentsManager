@@ -4,7 +4,9 @@ namespace StudentsManager.Abstract.Repo;
 
 public interface IStudentRepository
 {
-    Task<Student> FindStudentByIdAsync(int studentId);
-    Task RemoveStudentAsync(Student student);
+    Task<IEnumerable<Student>> GetAllStudentsAsync();
+    Task<Student?> GetStudentByIdAsync(int studentId);
     Task AddStudentAsync(Student student);
+    Task UpdateStudentAsync(Student student);
+    Task DeleteStudentAsync(int studentId);
 }

@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StudentsManager.Abstract;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
 using StudentsManager.Context;
@@ -43,7 +42,7 @@ public class UserService : IUserService
 
     public async Task<IdentityResult> DeleteTeacherAsync(int teacherId)
     {
-        var teacher = await _teacherRepository.FindTeacherByIdAsync(teacherId);
+        var teacher = await _teacherRepository.GetTeacherByIdAsync(teacherId);
         if (teacher != null)
         {
             foreach (var classGroup in teacher.ClassGroups.ToList())
@@ -56,7 +55,7 @@ public class UserService : IUserService
             _applicationDbContext.Messages.RemoveRange(userMessages);
             await _applicationDbContext.SaveChangesAsync();
 
-            await _teacherRepository.RemoveTeacherAsync(teacher);
+            await _teacherRepository.DeleteTeacherAsync(teacher.TeacherId);
             var user = await _userManager.FindByIdAsync(teacher.ApplicationUserId);
             if (user != null) return await _userManager.DeleteAsync(user);
         }
@@ -66,7 +65,7 @@ public class UserService : IUserService
 
     public async Task<IdentityResult> DeleteStudentAsync(int studentId)
     {
-        var student = await _studentRepository.FindStudentByIdAsync(studentId);
+        var student = await _studentRepository.GetStudentByIdAsync(studentId);
         if (student != null)
         {
             var userMessages = await _applicationDbContext.Messages
@@ -76,7 +75,7 @@ public class UserService : IUserService
             _applicationDbContext.Messages.RemoveRange(userMessages);
             await _applicationDbContext.SaveChangesAsync();
 
-            await _studentRepository.RemoveStudentAsync(student);
+            await _studentRepository.DeleteStudentAsync(student.StudentId);
             var user = await _userManager.FindByIdAsync(student.ApplicationUserId);
             if (user != null) return await _userManager.DeleteAsync(user);
         }

@@ -34,6 +34,8 @@ public class Program
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IStudentRepository, StudentRepository>();
         builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+        builder.Services.AddScoped<IStudentService, StudentService>();
+        builder.Services.AddScoped<ITeacherService, TeacherService>();
         builder.Services.AddScoped<IChatService, ChatService>();
         builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
         builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
