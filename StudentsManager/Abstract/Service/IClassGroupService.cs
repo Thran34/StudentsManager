@@ -9,7 +9,8 @@ public interface IClassGroupService
     Task<ClassGroup?> GetClassGroupDetailsAsync(int id);
     Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id);
     Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id);
-    Task CreateClassGroupAsync(CreateClassGroupViewModel viewModel);
-    Task UpdateClassGroupAsync(int id);
-    Task DeleteClassGroupAsync(int id);
+    Task<IEnumerable<ClassGroup>> GetClassGroupsForUserAsync(ApplicationUser user, string userId);
+    Task<CreateClassGroupViewModel> PrepareCreateClassGroupViewModelAsync();
+    Task<bool> TryCreateClassGroupAsync(CreateClassGroupViewModel viewModel);
+    Task<bool> TryDeleteClassGroupAsync(int classGroupId);
 }

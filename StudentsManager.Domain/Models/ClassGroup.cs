@@ -1,5 +1,3 @@
-using StudentsManager.Models;
-
 namespace StudentsManager.Domain.Models;
 
 public class ClassGroup

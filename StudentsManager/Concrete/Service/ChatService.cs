@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentsManager.Abstract.Service;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
-using StudentsManager.Models;
 
 namespace StudentsManager.Concrete.Service;
 

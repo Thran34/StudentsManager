@@ -1,4 +1,4 @@
-namespace StudentsManager.Models;
+namespace StudentsManager.Domain.Models;
 
 public class ErrorViewModel
 {

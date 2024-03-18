@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentsManager.Domain.Models;
-using StudentsManager.Models;
 
 namespace StudentsManager.Context;
 

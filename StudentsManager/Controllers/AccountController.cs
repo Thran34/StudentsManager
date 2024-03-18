@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StudentsManager.Abstract;
 using StudentsManager.Abstract.Service;
 using StudentsManager.ViewModel;
 

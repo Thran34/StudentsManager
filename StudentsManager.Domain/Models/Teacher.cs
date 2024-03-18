@@ -9,6 +9,5 @@ public class Teacher
     public string PhoneNumber { get; set; }
     public ApplicationUser ApplicationUser { get; set; }
     public string ApplicationUserId { get; set; }
-
     public ICollection<ClassGroup> ClassGroups { get; set; }
 }

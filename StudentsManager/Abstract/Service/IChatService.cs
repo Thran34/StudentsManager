@@ -1,5 +1,4 @@
 using StudentsManager.Domain.Models;
-using StudentsManager.Models;
 
 namespace StudentsManager.Abstract.Service;
 

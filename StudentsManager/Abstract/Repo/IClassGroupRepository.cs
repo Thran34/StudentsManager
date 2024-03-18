@@ -8,8 +8,10 @@ public interface IClassGroupRepository
     Task<ClassGroup?> GetClassGroupByIdAsync(int id);
     Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id);
     Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id);
-    Task CreateClassGroupAsync(ClassGroup classGroup);
-    Task UpdateClassGroupAsync(ClassGroup classGroup);
+    Task<IEnumerable<dynamic>> GetUnassignedStudentsAsync();
+    Task<IEnumerable<dynamic>> GetAvailableTeachersAsync();
+    bool ClassGroupExists(string name);
+    Task AddClassGroupAsync(ClassGroup classGroup, IEnumerable<int> selectedStudentIds);
+    Task<ClassGroup> GetClassGroupWithStudentsAsync(int classGroupId);
     Task DeleteClassGroupAsync(ClassGroup classGroup);
-    Task<bool> ClassGroupExistsAsync(int id);
 }

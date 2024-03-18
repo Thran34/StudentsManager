@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
-using StudentsManager.Models;
 
 namespace StudentsManager.Controllers;
 

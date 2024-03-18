@@ -48,14 +48,55 @@ public class ClassGroupRepository : IClassGroupRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteClassGroupAsync(ClassGroup classGroup)
-    {
-        _context.ClassGroups.Remove(classGroup);
-        await _context.SaveChangesAsync();
-    }
-
     public async Task<bool> ClassGroupExistsAsync(int id)
     {
         return await _context.ClassGroups.AnyAsync(cg => cg.ClassGroupId == id);
+    }
+
+    public async Task<IEnumerable<dynamic>> GetUnassignedStudentsAsync()
+    {
+        return await _context.Students
+            .Where(s => s.ClassGroupId == null)
+            .Select(s => new { s.StudentId, FullName = s.FirstName + " " + s.LastName })
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<dynamic>> GetAvailableTeachersAsync()
+    {
+        return await _context.Teachers
+            .Select(t => new { t.TeacherId, FullName = t.FirstName + " " + t.LastName })
+            .ToListAsync();
+    }
+
+    public bool ClassGroupExists(string name)
+    {
+        return _context.ClassGroups.Any(cg => cg.Name == name);
+    }
+
+    public async Task AddClassGroupAsync(ClassGroup classGroup, IEnumerable<int> selectedStudentIds)
+    {
+        _context.ClassGroups.Add(classGroup);
+        await _context.SaveChangesAsync();
+
+        var students = _context.Students.Where(s => selectedStudentIds.Contains(s.StudentId));
+        foreach (var student in students) student.ClassGroupId = classGroup.ClassGroupId;
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<ClassGroup> GetClassGroupWithStudentsAsync(int classGroupId)
+    {
+        return await _context.ClassGroups
+            .Include(cg => cg.Students)
+            .FirstOrDefaultAsync(m => m.ClassGroupId == classGroupId);
+    }
+
+    public async Task DeleteClassGroupAsync(ClassGroup classGroup)
+    {
+        foreach (var student in
+                 classGroup.Students) student.ClassGroupId = null; // Unassign students from the class group
+
+        _context.ClassGroups.Remove(classGroup);
+        await _context.SaveChangesAsync();
     }
 }
