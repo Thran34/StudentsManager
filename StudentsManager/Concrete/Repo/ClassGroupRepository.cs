@@ -27,7 +27,7 @@ public class ClassGroupRepository : IClassGroupRepository
     public async Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id)
     {
         return await _context.ClassGroups.Include(cg => cg.LessonPlans)
-            .Where(cg => cg.Students.Any(s => s.ApplicationUserId == id)).ToListAsync();
+            .Where(cg => cg.Teacher.ApplicationUserId == id).ToListAsync();
     }
 
     public async Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id)
