@@ -31,6 +31,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: Build Success
+        from: jasinski.cloud@gmail.com
         to: jasinski.a11@gmail.com
         body: Build was successful.
     - name: Send failure email
@@ -42,5 +43,6 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: Build Failure
+        from: jasinski.cloud@gmail.com
         to: jasinski.a11@gmail.com
         body: Build failed.
