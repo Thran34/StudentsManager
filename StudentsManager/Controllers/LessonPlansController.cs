@@ -15,9 +15,9 @@ public class LessonPlansController : Controller
         _lessonPlanService = lessonPlanService;
     }
 
-    public async Task<IActionResult> Create(int? classGroupId, DayOfWeek? day, int? hour)
+    public async Task<IActionResult> Create(int? classGroupId, DayOfWeek? day, int? hour, DateTime? date)
     {
-        var viewModel = _lessonPlanService.PrepareCreateViewModelAsync(classGroupId, day, hour);
+        var viewModel = _lessonPlanService.PrepareCreateViewModelAsync(classGroupId, day, hour, date);
         return View(viewModel);
     }
 

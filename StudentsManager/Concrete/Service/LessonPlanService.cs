@@ -21,9 +21,10 @@ public class LessonPlanService : ILessonPlanService
         _mapper = mapper;
     }
 
-    public CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour)
+    public CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour,
+        DateTime? date)
     {
-        return _lessonPlanRepository.PrepareCreateViewModelAsync(classGroupId, day, hour);
+        return _lessonPlanRepository.PrepareCreateViewModelAsync(classGroupId, day, hour, date);
     }
 
     public async Task<EditLessonPlanViewModel> PrepareEditViewModelAsync(int lessonPlanId)

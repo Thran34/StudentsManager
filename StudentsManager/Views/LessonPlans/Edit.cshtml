@@ -22,6 +22,11 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Date">Date</label>
+        <textarea asp-for="Date" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
         <label asp-for="Subject">Subject</label>
         <select asp-for="Subject" class="form-control" asp-items="Html.GetEnumSelectList<Subject>()"></select>
     </div>

@@ -1,15 +1,40 @@
 @model IEnumerable<StudentsManager.Domain.Models.ClassGroup>
 
+@{
+    var today = DateTime.Today;
+    var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+    var futureWeeks = new List<string>();
+    for (var week = 0; week < 52; week++)
+    {
+        var weekStart = startOfWeek.AddDays(week * 7);
+        var weekEnd = weekStart.AddDays(6);
+        futureWeeks.Add($"{weekStart:dd.MM.yy} - {weekEnd:dd.MM.yy}");
+    }
+}
+
 <h2>Class Groups</h2>
 
-<div class="mb-3">
-    <select id="classGroupSelect" class="form-control">
-        <option value="">Select a Class Group</option>
-        @foreach (var classGroup in Model)
-        {
-            <option value="@classGroup.ClassGroupId">@classGroup.Name</option>
-        }
-    </select>
+<div style="display:flex; justify-content:space-between;">
+    <div class="mb-3" style="flex: 0 0 30%; max-width: 30%;">
+        <select id="classGroupSelect" class="form-control">
+            <option value="">Select a Class Group</option>
+            @foreach (var classGroup in Model)
+            {
+                <option value="@classGroup.ClassGroupId">@classGroup.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3" style="flex: 0 0 30%; max-width: 30%;">
+        <select id="weekSelect" class="form-control">
+            <option value="">Select Week</option>
+            @foreach (var week in futureWeeks)
+            {
+                var weekStartDate = DateTime.ParseExact(week.Substring(0, 8), "dd.MM.yy", null);
+                <option value="@weekStartDate.ToString("yyyy-MM-dd")">@week</option>
+            }
+        </select>
+    </div>
 </div>
 
 @foreach (var classGroup in Model)
@@ -69,7 +94,7 @@
                         <td class="lesson-slot"
                             style="background-color: @subjectClass;"
                             data-class-group-id="@classGroup.ClassGroupId"
-                            data-day="@day"
+                            data-day="@((int)day)"
                             data-hour="@hour"
                             data-lesson-plan-id="@lessonPlan?.LessonPlanId">
                             @if (isBooked)
@@ -112,23 +137,36 @@
             }
         });
         
-           document.addEventListener("DOMContentLoaded", function() {
-                  var isAdmin = '@User.IsInRole("Admin")' === 'True' ? true : false;
-          
-                  document.querySelectorAll('.lesson-slot').forEach(slot => {
-                      slot.addEventListener('click', function() {
-                          var lessonPlanId = this.getAttribute('data-lesson-plan-id');
-                          var classGroupId = this.getAttribute('data-class-group-id');
-                          var day = this.getAttribute('data-day');
-                          var hour = this.getAttribute('data-hour');
-          
-                          if (lessonPlanId && isAdmin) {
-                              window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
-                          }
-                          else if (!lessonPlanId && classGroupId && day && hour && isAdmin) {
-                              window.location.href = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}`;
-                          }
-                      });
-                  });
-              });
+        document.addEventListener("DOMContentLoaded", function() {
+            var isAdmin = '@User.IsInRole("Admin")' === 'True';
+            var weekSelect = document.getElementById('weekSelect');
+        
+            document.querySelectorAll('.lesson-slot').forEach(slot => {
+                slot.addEventListener('click', function() {
+                    var classGroupId = this.getAttribute('data-class-group-id');
+                    var day = parseInt(this.getAttribute('data-day'));
+                    var hour = this.getAttribute('data-hour');
+        
+                    if (isNaN(day)) {
+                        console.error("Failed to parse day as a number. Day value:", this.getAttribute('data-day'));
+                        return;
+                    }
+        
+                    if (weekSelect.value) {
+                        var weekStartDate = new Date(weekSelect.value);
+                        if (!isNaN(weekStartDate.getTime())) {
+                          var selectedDate = new Date(weekStartDate);
+                          selectedDate.setDate(selectedDate.getDate() + (day - 1));         
+                            if (isAdmin) {
+                                var dateString = selectedDate.toISOString().substring(0, 10);
+                                var url = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
+                                window.location.href = url;
+                            }
+                        } else {
+                            console.error("Invalid week start date:", weekSelect.value);
+                        }
+                    }
+                });
+            });
+        });
           </script>

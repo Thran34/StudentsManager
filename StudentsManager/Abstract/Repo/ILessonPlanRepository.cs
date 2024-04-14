@@ -10,5 +10,5 @@ public interface ILessonPlanRepository
     Task AddLessonPlanAsync(LessonPlan lessonPlan);
     Task UpdateLessonPlanAsync(LessonPlan lessonPlan);
     Task DeleteLessonPlanAsync(int lessonPlanId);
-    CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour);
+    CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour, DateTime? date);
 }

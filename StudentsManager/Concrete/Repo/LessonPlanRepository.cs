@@ -48,9 +48,10 @@ public class LessonPlanRepository : ILessonPlanRepository
         }
     }
 
-    public CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour)
+    public CreateLessonPlanViewModel PrepareCreateViewModelAsync(int? classGroupId, DayOfWeek? day, int? hour,
+        DateTime? date)
     {
-        return new CreateLessonPlanViewModel
+        var viewModel = new CreateLessonPlanViewModel
         {
             ClassGroups = _context.ClassGroups.Include(cg => cg.LessonPlans)
                 .Select(c => new SelectListItem { Value = c.ClassGroupId.ToString(), Text = c.Name }).ToList(),
@@ -58,5 +59,9 @@ public class LessonPlanRepository : ILessonPlanRepository
             DayOfWeek = day ?? DayOfWeek.Monday,
             StartHour = hour ?? 8
         };
+
+        if (date.HasValue) viewModel.Date = date.Value.Date;
+
+        return viewModel;
     }
 }

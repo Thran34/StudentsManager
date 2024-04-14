@@ -9,6 +9,7 @@ public class LessonPlanProfile : Profile
         CreateMap<CreateLessonPlanViewModel, LessonPlan>()
             .ForMember(dest => dest.ClassGroupId, opt => opt.MapFrom(src => src.SelectedClassGroupId))
             .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.DayOfWeek))
+            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.StartHour, opt => opt.MapFrom(src => src.StartHour))
             .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject));
@@ -17,6 +18,7 @@ public class LessonPlanProfile : Profile
             .ForMember(dest => dest.LessonPlanId, opt => opt.MapFrom(src => src.LessonPlanId))
             .ForMember(dest => dest.SelectedClassGroupId, opt => opt.MapFrom(src => src.ClassGroupId))
             .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.DayOfWeek))
+            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.StartHour, opt => opt.MapFrom(src => src.StartHour))
             .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject));
@@ -24,6 +26,7 @@ public class LessonPlanProfile : Profile
         CreateMap<EditLessonPlanViewModel, LessonPlan>()
             .ForMember(dest => dest.ClassGroupId, opt => opt.MapFrom(src => src.SelectedClassGroupId))
             .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.DayOfWeek))
+            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.StartHour, opt => opt.MapFrom(src => src.StartHour))
             .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
