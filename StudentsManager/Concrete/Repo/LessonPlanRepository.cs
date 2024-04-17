@@ -26,6 +26,7 @@ public class LessonPlanRepository : ILessonPlanRepository
         return await _context.LessonPlans.ToListAsync();
     }
 
+
     public async Task AddLessonPlanAsync(LessonPlan lessonPlan)
     {
         _context.LessonPlans.Add(lessonPlan);

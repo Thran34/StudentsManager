@@ -96,7 +96,8 @@
                             data-class-group-id="@classGroup.ClassGroupId"
                             data-day="@((int)day)"
                             data-hour="@hour"
-                            data-lesson-plan-id="@lessonPlan?.LessonPlanId">
+                            data-lesson-plan-id="@lessonPlan?.LessonPlanId"
+                            data-date="@lessonPlan?.Date">
                             @if (isBooked)
                             {
                                 <div>@lessonPlan.Subject - @lessonPlan.Description</div>
@@ -159,15 +160,18 @@
                         if (!isNaN(weekStartDate.getTime())) {
                           var selectedDate = new Date(weekStartDate);
                           selectedDate.setDate(selectedDate.getDate() + (day - 1));    
-                           var dateString = selectedDate.toISOString().substring(0, 10);
+                           var dateString = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
                            if (lessonPlanId && isAdmin) {
                             window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
                            }
                            else if (!lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
-                           
                             var url = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
                             window.location.href = url;
                             }
+                           else if (lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
+                            var url = `@Url.Action("Edit", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
+                           window.location.href = url;
+                           }
                         } else {
                             console.error("Invalid week start date:", weekSelect.value);
                         }
