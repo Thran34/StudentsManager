@@ -1,6 +1,6 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Owin.Cors;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
 using StudentsManager.Concrete.Repo;
@@ -8,6 +8,7 @@ using StudentsManager.Concrete.Service;
 using StudentsManager.Context;
 using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Models;
+using StudentsManager.Domain.Validators;
 
 
 namespace StudentsManager;
@@ -43,15 +44,21 @@ public class Program
 
         // Dependency Injection
         builder.Services.AddScoped<IUserService, UserService>();
-        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-        builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+        builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
         builder.Services.AddScoped<IStudentService, StudentService>();
         builder.Services.AddScoped<ITeacherService, TeacherService>();
         builder.Services.AddScoped<IChatService, ChatService>();
-        builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
-        builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
-        builder.Services.AddScoped<ILessonPlanRepository, LessonPlanRepository>();
         builder.Services.AddScoped<ILessonPlanService, LessonPlanService>();
+
+        builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
+        builder.Services.AddScoped<ILessonPlanRepository, LessonPlanRepository>();
+        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+        builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+        builder.Services.AddScoped<IChatRepository, ChatRepository>();
+
+        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ClassGroupValidator>());
+        builder.Services.AddFluentValidation(fv =>
+            fv.RegisterValidatorsFromAssemblyContaining<ApplicationUserValidator>());
 
         var app = builder.Build();
 

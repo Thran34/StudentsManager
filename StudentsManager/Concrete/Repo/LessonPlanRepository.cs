@@ -55,6 +55,7 @@ public class LessonPlanRepository : ILessonPlanRepository
         var viewModel = new CreateLessonPlanViewModel
         {
             ClassGroups = _context.ClassGroups.Include(cg => cg.LessonPlans)
+                .Where(x => x.ClassGroupId == classGroupId)
                 .Select(c => new SelectListItem { Value = c.ClassGroupId.ToString(), Text = c.Name }).ToList(),
             SelectedClassGroupId = classGroupId ?? 0,
             DayOfWeek = day ?? DayOfWeek.Monday,

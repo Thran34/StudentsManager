@@ -7,7 +7,7 @@ public class LessonPlan
     public ClassGroup ClassGroup { get; set; }
     public DateTime Date { get; set; }
     public DayOfWeek DayOfWeek { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public int StartHour { get; set; }
     public Subject Subject { get; set; }
 }

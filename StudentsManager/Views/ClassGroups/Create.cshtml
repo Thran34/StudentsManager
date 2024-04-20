@@ -17,13 +17,13 @@
         <label asp-for="SelectedStudentIds">Select Students</label>
         <select asp-for="SelectedStudentIds" asp-items="Model.UnassignedStudentSelectList" class="form-control" id="selectedStudents" multiple="multiple">
         </select>
-        <span asp-validation-for="SelectedStudentIds" class="text-danger"></span> <!-- Display validation message for students -->
+        <span asp-validation-for="SelectedStudentIds" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="SelectedTeacherId">Select Teacher</label>
         <select asp-for="SelectedTeacherId" asp-items="@Model.AvailableTeacherSelectList" class="form-control" id="selectedTeacher">
         </select>
-        <span asp-validation-for="SelectedTeacherId" class="text-danger"></span> <!-- Display validation message for teacher -->
+        <span asp-validation-for="SelectedTeacherId" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Class Group</button>

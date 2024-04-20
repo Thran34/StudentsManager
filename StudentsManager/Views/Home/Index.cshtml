@@ -11,7 +11,7 @@
 <input type="hidden" id="currentUserId" value="@userId"/>
 
 <div class="text-center" style="margin-top: 200px;">
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity!.IsAuthenticated)
     {
         if (User.IsInRole("Admin"))
         {

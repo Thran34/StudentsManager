@@ -11,7 +11,7 @@ public class EditLessonPlanViewModel
     [Required] public DayOfWeek DayOfWeek { get; set; }
     public DateTime Date { get; set; }
     [Required] public Subject Subject { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     [Required] public int StartHour { get; set; }
     public List<SelectListItem> ClassGroups { get; set; }
 }
