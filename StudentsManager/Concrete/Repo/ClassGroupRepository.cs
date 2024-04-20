@@ -14,9 +14,11 @@ public class ClassGroupRepository : IClassGroupRepository
         _context = context;
     }
 
-    public async Task<List<ClassGroup>> GetAllClassGroupsAsync()
+    public async Task<List<ClassGroup>> GetAllClassGroupsAsync(DateTime? weekStartDate)
     {
-        return await _context.ClassGroups.Include(cg => cg.LessonPlans).ToListAsync();
+        var weekEnd = weekStartDate?.AddDays(6);
+        return await _context.ClassGroups
+            .Include(cg => cg.LessonPlans.Where(x => x.Date >= weekStartDate && x.Date <= weekEnd)).ToListAsync();
     }
 
     public async Task<ClassGroup?> GetClassGroupByIdAsync(int id)
@@ -24,15 +26,20 @@ public class ClassGroupRepository : IClassGroupRepository
         return await _context.ClassGroups.FirstOrDefaultAsync(cg => cg.ClassGroupId == id);
     }
 
-    public async Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id)
+    public async Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id, DateTime? weekStartDate)
     {
-        return await _context.ClassGroups.Include(cg => cg.LessonPlans)
+        var weekEnd = weekStartDate?.AddDays(6);
+        return await _context.ClassGroups
+            .Include(cg => cg.LessonPlans.Where(x => x.Date >= weekStartDate && x.Date <= weekEnd))
             .Where(cg => cg.Teacher.ApplicationUserId == id).ToListAsync();
     }
 
-    public async Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id)
+    public async Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id, DateTime? weekStartDate)
     {
-        return await _context.ClassGroups.Include(cg => cg.LessonPlans)
+        var weekEnd = weekStartDate?.AddDays(6);
+
+        return await _context.ClassGroups
+            .Include(cg => cg.LessonPlans.Where(x => x.Date >= weekStartDate && x.Date <= weekEnd))
             .FirstOrDefaultAsync(cg => cg.Students.Any(s => s.ApplicationUserId == id));
     }
 

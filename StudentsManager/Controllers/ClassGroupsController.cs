@@ -26,13 +26,15 @@ public class ClassGroupsController : Controller
         _mapper = mapper;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(DateTime? weekStartDate = null)
     {
         var user = await GetUserAsync();
         var userId = _userManager.GetUserId(User);
-        var classGroups = await _classGroupService.GetClassGroupsForUserAsync(user, userId);
+        var classGroups = await _classGroupService.GetClassGroupsForUserAsync(user, userId, weekStartDate);
+
         return View(classGroups);
     }
+
 
     private async Task<ApplicationUser> GetUserAsync()
     {

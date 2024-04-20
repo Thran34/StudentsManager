@@ -21,9 +21,9 @@ public class ClassGroupService : IClassGroupService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ClassGroup>> GetAllClassGroupsAsync()
+    public async Task<IEnumerable<ClassGroup>> GetAllClassGroupsAsync(DateTime? weekStartDate)
     {
-        var classGroups = await _repository.GetAllClassGroupsAsync();
+        var classGroups = await _repository.GetAllClassGroupsAsync(weekStartDate);
         return classGroups;
     }
 
@@ -32,29 +32,29 @@ public class ClassGroupService : IClassGroupService
         return await _repository.GetClassGroupByIdAsync(id);
     }
 
-    public async Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id)
+    public async Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id, DateTime? weekStartDate)
     {
-        var classGroups = await _repository.GetTeacherClassGroupsByIdAsync(id);
+        var classGroups = await _repository.GetTeacherClassGroupsByIdAsync(id, weekStartDate);
         return classGroups;
     }
 
-    public async Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id)
+    public async Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id, DateTime? weekStartDate)
     {
-        var classGroup = await _repository.GetStudentClassGroupByIdAsync(id);
+        var classGroup = await _repository.GetStudentClassGroupByIdAsync(id, weekStartDate);
         return classGroup;
     }
 
-    public async Task<IEnumerable<ClassGroup>> GetClassGroupsForUserAsync(ApplicationUser user, string userId)
+    public async Task<IEnumerable<ClassGroup>> GetClassGroupsForUserAsync(ApplicationUser user, string userId,
+        DateTime? weekStartDate)
     {
-        if (await _userManager.IsInRoleAsync(user, "Admin")) return await GetAllClassGroupsAsync();
-
+        if (await _userManager.IsInRoleAsync(user, "Admin")) return await GetAllClassGroupsAsync(weekStartDate);
         if (await _userManager.IsInRoleAsync(user, "Student"))
         {
-            var classGroup = await GetStudentClassGroupByIdAsync(userId);
+            var classGroup = await GetStudentClassGroupByIdAsync(userId, weekStartDate);
             return new List<ClassGroup> { classGroup };
         }
 
-        return await GetTeacherClassGroupsByIdAsync(userId);
+        return await GetTeacherClassGroupsByIdAsync(userId, weekStartDate);
     }
 
     public async Task<CreateClassGroupViewModel> PrepareCreateClassGroupViewModelAsync()

@@ -32,7 +32,7 @@ public class LessonPlanService : ILessonPlanService
         var lessonPlan = await _lessonPlanRepository.GetLessonPlanByIdAsync(lessonPlanId);
         var viewModel = _mapper.Map<EditLessonPlanViewModel>(lessonPlan);
 
-        viewModel.ClassGroups = _classGroupRepository.GetAllClassGroupsAsync().Result.Select(c =>
+        viewModel.ClassGroups = _classGroupRepository.GetAllClassGroupsAsync(null).Result.Select(c =>
             new SelectListItem
             {
                 Value = c.ClassGroupId.ToString(),

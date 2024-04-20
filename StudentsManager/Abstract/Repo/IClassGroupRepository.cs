@@ -4,10 +4,10 @@ namespace StudentsManager.Abstract.Repo;
 
 public interface IClassGroupRepository
 {
-    Task<List<ClassGroup>> GetAllClassGroupsAsync();
+    Task<List<ClassGroup>> GetAllClassGroupsAsync(DateTime? weekStartDate);
     Task<ClassGroup?> GetClassGroupByIdAsync(int id);
-    Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id);
-    Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id);
+    Task<List<ClassGroup>> GetTeacherClassGroupsByIdAsync(string? id, DateTime? weekStartDate);
+    Task<ClassGroup?> GetStudentClassGroupByIdAsync(string? id, DateTime? weekStartDate);
     Task<IEnumerable<dynamic>> GetUnassignedStudentsAsync();
     Task<IEnumerable<dynamic>> GetAvailableTeachersAsync();
     bool ClassGroupExists(string name);

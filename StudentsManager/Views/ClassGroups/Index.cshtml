@@ -127,56 +127,79 @@
 }
 
 <script>
-        document.getElementById('classGroupSelect').addEventListener('change', function () {
-            var selectedGroupId = this.value;
-            var allClassGroups = document.querySelectorAll('[id^="classGroup-"]');
-            allClassGroups.forEach(function(group) {
-                group.style.display = 'none';
-            });
-            if (selectedGroupId) {
-                document.getElementById('classGroup-' + selectedGroupId).style.display = 'block';
+document.addEventListener("DOMContentLoaded", function() {
+    var weekSelect = document.getElementById('weekSelect');
+    var classGroupSelect = document.getElementById('classGroupSelect');
+    var allClassGroups = document.querySelectorAll('[id^="classGroup-"]');
+    var isAdmin = '@User.IsInRole("Admin")' === 'True';
+
+    function handleSelections() {
+        var selectedWeek = weekSelect.value;
+        var selectedGroup = classGroupSelect.value;
+
+        if (selectedWeek && selectedGroup) {
+            var currentUrl = new URL(window.location.href);
+            var urlWeek = currentUrl.searchParams.get('weekStartDate');
+            var urlGroup = currentUrl.searchParams.get('classGroupId');
+
+            if (urlWeek !== selectedWeek || urlGroup !== selectedGroup) {
+                window.location.href = '?weekStartDate=' + encodeURIComponent(selectedWeek) + '&classGroupId=' + encodeURIComponent(selectedGroup);
+            } else {
+                allClassGroups.forEach(function(group) {
+                    group.style.display = 'none';
+                });
+                var activeGroup = document.getElementById('classGroup-' + selectedGroup);
+                if (activeGroup) {
+                    activeGroup.style.display = 'block';
+                }
+            }
+        }
+    }
+
+    // Event Listeners
+    weekSelect.addEventListener('change', handleSelections);
+    classGroupSelect.addEventListener('change', handleSelections);
+
+    // Initialize selections from URL
+    var params = new URLSearchParams(window.location.search);
+    var weekParam = params.get('weekStartDate');
+    var groupParam = params.get('classGroupId');
+
+    if (weekParam && groupParam) {
+        weekSelect.value = weekParam;
+        classGroupSelect.value = groupParam;
+        handleSelections();  // Auto-display the table based on URL parameters
+    }
+
+    // Additional functionality for handling lesson slots
+    document.querySelectorAll('.lesson-slot').forEach(slot => {
+        slot.addEventListener('click', function() {
+            var classGroupId = this.getAttribute('data-class-group-id');
+            var lessonPlanId = this.getAttribute('data-lesson-plan-id');
+            var day = parseInt(this.getAttribute('data-day'));
+            var hour = this.getAttribute('data-hour');
+
+            if (!isNaN(day) && weekSelect.value) {
+                var weekStartDate = new Date(weekSelect.value);
+                if (!isNaN(weekStartDate.getTime())) {
+                    var selectedDate = new Date(weekStartDate);
+                    selectedDate.setDate(selectedDate.getDate() + (day - 1));
+                    var dateString = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
+                    
+                    if (lessonPlanId && isAdmin) {
+                        window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
+                    } else if (!lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
+                        var url = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
+                        window.location.href = url;
+                    } else if (lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
+                        var url = `@Url.Action("Edit", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
+                        window.location.href = url;
+                    }
+                } else {
+                    console.error("Invalid week start date:", weekSelect.value);
+                }
             }
         });
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            var isAdmin = '@User.IsInRole("Admin")' === 'True';
-            var weekSelect = document.getElementById('weekSelect');
-        
-            document.querySelectorAll('.lesson-slot').forEach(slot => {
-                slot.addEventListener('click', function() {
-                    var classGroupId = this.getAttribute('data-class-group-id');
-                    var lessonPlanId = this.getAttribute('data-lesson-plan-id');
-                    var day = parseInt(this.getAttribute('data-day'));
-                    var hour = this.getAttribute('data-hour');
-        
-                    if (isNaN(day)) {
-                        console.error("Failed to parse day as a number. Day value:", this.getAttribute('data-day'));
-                        return;
-                    }
-        
-                    if (weekSelect.value) {
-                        
-                        var weekStartDate = new Date(weekSelect.value);
-                        if (!isNaN(weekStartDate.getTime())) {
-                          var selectedDate = new Date(weekStartDate);
-                          selectedDate.setDate(selectedDate.getDate() + (day - 1));    
-                           var dateString = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
-                           if (lessonPlanId && isAdmin) {
-                            window.location.href = `@Url.Action("Edit", "LessonPlans")?lessonPlanId=${lessonPlanId}`;
-                           }
-                           else if (!lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
-                            var url = `@Url.Action("Create", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
-                            window.location.href = url;
-                            }
-                           else if (lessonPlanId && classGroupId && day && hour && dateString && isAdmin) {
-                            var url = `@Url.Action("Edit", "LessonPlans")?classGroupId=${classGroupId}&day=${day}&hour=${hour}&date=${dateString}`;
-                           window.location.href = url;
-                           }
-                        } else {
-                            console.error("Invalid week start date:", weekSelect.value);
-                        }
-                    }
-                });
-            });
-        });
-          </script>
+    });
+});
+</script>
