@@ -24,32 +24,11 @@ public class ChatController : Controller
         return Json(users);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> SendMessage(string receiverId, string content)
-    {
-        var senderId = _userManager.GetUserId(User);
-        await _chatService.SendMessageAsync(senderId, receiverId, content);
-        return Ok();
-    }
-
     [HttpGet]
-    public async Task<IActionResult> GetUnreadMessages(string receiverId)
-    {
-        var messages = await _chatService.GetUnreadMessagesAsync(receiverId);
-        return Json(messages);
-    }
-
     public async Task<IActionResult> GetMessages(string contactId)
     {
         var userId = _userManager.GetUserId(User);
         var messages = await _chatService.GetMessagesWithContactAsync(userId, contactId);
         return Json(messages);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> MarkMessagesAsRead([FromBody] List<int> messageIds)
-    {
-        await _chatService.MarkMessagesAsReadAsync(messageIds);
-        return Ok();
     }
 }

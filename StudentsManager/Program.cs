@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StudentsManager.Abstract;
+using Microsoft.Owin.Cors;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
 using StudentsManager.Concrete.Repo;
@@ -8,6 +8,7 @@ using StudentsManager.Concrete.Service;
 using StudentsManager.Context;
 using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Models;
+
 
 namespace StudentsManager;
 
@@ -21,16 +22,26 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string"));
-        });
+            options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string")));
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        // DI
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true)
+                    .AllowCredentials();
+            }));
+
+        builder.Services.AddSignalR().AddStackExchangeRedis("localhost:6379",
+            options => { options.Configuration.ChannelPrefix = "SignalR"; });
+
+        // Dependency Injection
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IStudentRepository, StudentRepository>();
         builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
@@ -51,10 +62,24 @@ public class Program
             app.UseHsts();
         }
 
-        app.MapControllerRoute(
-            "default",
-            "{controller=Home}/{action=Index}/{id?}");
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin());
 
+        app.UseRouting(); // This must be before UseAuthentication and UseAuthorization
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                "default",
+                "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapHub<ChatHub>("/chatHub");
+        });
+
+        // Initialize roles
         using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
@@ -64,20 +89,12 @@ public class Program
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 await RoleInitializer.InitializeAsync(userManager, roleManager);
             }
-
             catch (Exception ex)
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occurred while seeding the database.");
             }
         }
-
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
 
         await app.RunAsync();
     }

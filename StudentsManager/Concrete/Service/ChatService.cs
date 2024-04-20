@@ -36,13 +36,6 @@ public class ChatService : IChatService
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Message>> GetUnreadMessagesAsync(string receiverId)
-    {
-        return await _context.Messages
-            .Where(m => m.ReceiverId == receiverId && !m.IsRead)
-            .ToListAsync();
-    }
-
     public async Task<IEnumerable<dynamic>> GetMessagesWithContactAsync(string userId, string contactId)
     {
         return await _context.Messages
@@ -59,12 +52,5 @@ public class ChatService : IChatService
                 SenderFirstName = m.Sender.FirstName
             })
             .ToListAsync();
-    }
-
-    public async Task MarkMessagesAsReadAsync(List<int> messageIds)
-    {
-        var messages = await _context.Messages.Where(m => messageIds.Contains(m.Id)).ToListAsync();
-        foreach (var message in messages) message.IsRead = true;
-        await _context.SaveChangesAsync();
     }
 }
