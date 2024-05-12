@@ -49,5 +49,3 @@ jobs:
         terraform apply --auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_BASE64 }}
-
-    
