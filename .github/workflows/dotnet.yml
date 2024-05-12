@@ -39,15 +39,15 @@ jobs:
     - name: Initialize Terraform
       run: |
         cd Deployment/terraform
-        export GOOGLE_CREDENTIALS="${{ secrets.GCP_SA_KEY }}"
+        export GOOGLE_CREDENTIALS="${{ secrets.GCP_BASE64 }}"
         terraform init
 
     - name: Apply Terraform
       run: |
         cd Deployment/terraform 
-        export GOOGLE_CREDENTIALS="${{ secrets.GCP_SA_KEY }}"
+        export GOOGLE_CREDENTIALS="${{ secrets.GCP_BASE64 }}"
         terraform apply --auto-approve
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_BASE64 }}
 
     
