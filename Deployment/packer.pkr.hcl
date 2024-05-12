@@ -1,3 +1,13 @@
+packer {
+  required_plugins {
+    googlecompute = {
+      source  = "github.com/hashicorp/googlecompute"
+      version = "~> 1"
+    }
+  }
+}
+
+
 variable "project_id" {
   type    = string
   default = "ferrous-destiny-423011-p0"
