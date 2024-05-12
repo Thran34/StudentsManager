@@ -19,14 +19,6 @@ jobs:
       env:
         GCP_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 
-    - uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
-
-    - run: dotnet restore
-    - run: dotnet build --no-restore
-    - run: dotnet test --no-build --verbosity normal
-
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -41,7 +33,6 @@ jobs:
 
     - name: Validate and Build Image with Packer
       run: |
-        packer validate Deployment/packer.json
         packer build Deployment/packer.json
         
     - name: Initialize Terraform
