@@ -19,7 +19,7 @@ variable "zone" {
 }
 
 source "googlecompute" "example" {
-  account_file = "terraform/creds.json"
+  account_file = "Deployment/terraform/creds.json"
   project_id   = var.project_id
   source_image = "ubuntu-minimal-2204-jammy-v20240430"
   zone         = var.zone
