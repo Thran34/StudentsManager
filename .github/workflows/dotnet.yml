@@ -12,9 +12,44 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Setup GCP Credentials
+      run: |
+        echo '${{ secrets.GCP_SA_KEY }}' > creds.json
+      env:
+        GCP_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
+
     - run: dotnet restore
     - run: dotnet build --no-restore
     - run: dotnet test --no-build --verbosity normal
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: '1.3.0'
+        terraform_wrapper: false  # Optional: use false to run Terraform directly
+        
+    - name: Install Packer
+      run: |
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install packer
+
+    - name: Validate and Build Image with Packer
+      run: |
+        packer validate Deployment/packer.json
+        packer build Deployment/packer.json
+        
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Apply Terraform
+      run: terraform apply --auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+    
