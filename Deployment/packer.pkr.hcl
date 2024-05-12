@@ -39,9 +39,8 @@ build {
     inline = [
       "sudo apt-get update",
       "sudo apt-get -y upgrade",
-      "sudo apt-get -y install aptitude",
-      "sudo aptitude -y install git",
-      "sudo aptitude -y install dotnet-sdk-6.0",
+      "sudo apt-get -y install git",
+      "sudo apt-get -y install dotnet-sdk-6.0",
       "cd ~/",
       "mkdir app",
       "cd app",
