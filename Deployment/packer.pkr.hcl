@@ -37,10 +37,10 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt-get -y --force-yes update",
-      "sudo apt-get -y --force-yes upgrade",
-      "sudo apt-get -y --force-yes update",
-      "sudo apt-get -y --force-yes install aptitude",
+      "sudo apt-get -y update",
+      "sudo apt-get -y upgrade",
+      "sudo apt-get -y update",
+      "sudo apt-get -y install aptitude",
       "sudo aptitude -y install git",
       "sudo aptitude -y install dotnet-sdk-6.0",
       "cd ~/",

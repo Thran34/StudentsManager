@@ -46,6 +46,6 @@ jobs:
       run: |
         cd Deployment/terraform 
         export GOOGLE_CREDENTIALS="${{ secrets.GCP_BASE64 }}"
-        terraform apply -replace="google_compute_instance.vm_instance" --auto-approve
+        terraform apply --auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_BASE64 }}
