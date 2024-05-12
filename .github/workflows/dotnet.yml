@@ -33,7 +33,7 @@ jobs:
 
     - name: Validate and Build Image with Packer
       run: |
-        packer init packer.json
+        packer init Deployment/packer.json
         packer build Deployment/packer.json
         
     - name: Initialize Terraform
