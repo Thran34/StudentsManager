@@ -37,10 +37,14 @@ jobs:
         packer build Deployment/packer.pkr.hcl
         
     - name: Initialize Terraform
-      run: terraform init
+      run: |
+        cd Deployment/terraform
+        terraform init
 
     - name: Apply Terraform
-      run: terraform apply --auto-approve
+      run: |
+        cd Deployment/terraform 
+        terraform apply --auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 
