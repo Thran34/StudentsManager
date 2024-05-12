@@ -39,6 +39,7 @@ build {
     inline = [
       "sudo apt-get -y --force-yes update",
       "sudo apt-get -y --force-yes upgrade",
+      "sudo apt-get -y --force-yes update",
       "sudo apt-get -y --force-yes install aptitude",
       "sudo aptitude -y install git",
       "sudo aptitude -y install dotnet-sdk-6.0",

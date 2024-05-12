@@ -14,6 +14,10 @@ resource "google_compute_instance" "vm_instance" {
   machine_type = "e2-medium"
   zone         = "us-central1-a"
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   boot_disk {
     initialize_params {
       image = data.google_compute_image.latest_app.self_link
@@ -24,16 +28,4 @@ resource "google_compute_instance" "vm_instance" {
     network = "default"
     access_config {}
   }
-}
-
-resource "google_compute_firewall" "default" {
-  name    = "allow-tcp-80"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "443"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
 }
