@@ -15,7 +15,7 @@ jobs:
 
     - name: Setup GCP Credentials
       run: |
-        echo '${{ secrets.GCP_SA_KEY }}' > creds.json
+        echo '${{ secrets.GCP_SA_KEY }}' > Deployment/terraform/creds.json
       env:
         GCP_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 

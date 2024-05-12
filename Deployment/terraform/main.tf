@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = "${GOOGLE_CREDENTIALS}"
+  credentials = file("${path.module}/creds.json")
   project     = "ferrous-destiny-423011-p0"
   region      = "us-central1"
 }

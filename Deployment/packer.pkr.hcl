@@ -19,7 +19,7 @@ variable "zone" {
 }
 
 source "googlecompute" "example" {
-  account_file = "creds.json"
+  account_file = "terraform/creds.json"
   project_id   = var.project_id
   source_image = "ubuntu-minimal-2204-jammy-v20240430"
   zone         = var.zone
@@ -37,9 +37,9 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt-get -y update",
-      "sudo apt-get -y upgrade",
-      "sudo apt-get -y install aptitude",
+      "sudo apt-get -y --force-yes update",
+      "sudo apt-get -y --force-yes upgrade",
+      "sudo apt-get -y --force-yes install aptitude",
       "sudo aptitude -y install git",
       "sudo aptitude -y install dotnet-sdk-6.0",
       "cd ~/",
