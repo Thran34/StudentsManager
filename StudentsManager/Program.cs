@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StudentsManager;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
 using StudentsManager.Concrete.Repo;
@@ -10,20 +11,37 @@ using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Models;
 using StudentsManager.Domain.Validators;
 
-
-namespace StudentsManager;
-
 public class Program
 {
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        if (!builder.Environment.IsDevelopment()) 
+            builder.WebHost.UseUrls("http://*:80");
+
+
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddHttpContextAccessor();
+
+        // Determine if we are running locally or on GCP
+        string connectionString;
+        string redisConnection;
+
+        if (builder.Environment.IsDevelopment())
+        {
+            connectionString = builder.Configuration.GetConnectionString("conn_string_local");
+            redisConnection = "localhost:6379";
+        }
+        else
+        {
+            connectionString = builder.Configuration.GetConnectionString("conn_string_gcp");
+            redisConnection = builder.Configuration.GetConnectionString("redis_gcp");
+        }
+
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("conn_string")));
+            options.UseSqlServer(connectionString));
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -39,7 +57,7 @@ public class Program
                     .AllowCredentials();
             }));
 
-        builder.Services.AddSignalR().AddStackExchangeRedis("localhost:6379",
+        builder.Services.AddSignalR().AddStackExchangeRedis(redisConnection,
             options => { options.Configuration.ChannelPrefix = "SignalR"; });
 
         // Dependency Injection
