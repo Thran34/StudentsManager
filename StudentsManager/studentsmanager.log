@@ -1,0 +1,445 @@
+2024-09-29 14:04:18.545 +02:00 [INF] Starting up the service
+2024-09-29 14:19:40.846 +02:00 [INF] Starting up the service
+2024-09-29 14:20:29.141 +02:00 [INF] Starting up the service
+2024-09-29 14:20:52.365 +02:00 [INF] Starting up the service
+2024-09-29 14:22:57.003 +02:00 [INF] Starting up the service
+2024-09-29 14:24:54.475 +02:00 [INF] Starting up the service
+2024-09-29 14:30:09.766 +02:00 [INF] Starting up the service
+2024-09-29 14:37:25.185 +02:00 [INF] Starting up the service
+2024-09-29 14:39:22.784 +02:00 [INF] Starting up the service
+2024-09-29 14:40:30.586 +02:00 [INF] Starting up the service
+2024-09-29 14:41:02.401 +02:00 [INF] Starting up the service
+2024-09-29 14:42:28.395 +02:00 [INF] Starting up the service
+2024-09-29 14:43:00.086 +02:00 [INF] Starting up the service
+2024-09-29 14:46:06.599 +02:00 [INF] Starting up the service
+2024-10-01 18:26:27.915 +02:00 [INF] Starting up the service
+2024-10-01 18:26:41.186 +02:00 [INF] Starting up the service
+2024-10-01 18:28:30.051 +02:00 [INF] Starting up the service
+2024-10-01 18:35:44.391 +02:00 [INF] Starting up the service
+2024-10-01 18:41:34.811 +02:00 [INF] Starting up the service
+2024-10-01 18:42:38.700 +02:00 [INF] Starting up the service
+2024-10-01 18:44:35.832 +02:00 [INF] Starting up the service
+2024-10-01 18:45:30.026 +02:00 [INF] Starting up the service
+2024-10-01 18:49:52.321 +02:00 [INF] Starting up the service
+2024-10-01 18:49:52.644 +02:00 [INF] Connecting to Redis endpoints: localhost:6379. Using Server Name: MacBook-Pro-Andrzej_380324b16c7443e494579ca49d25dc55
+2024-10-01 18:49:52.759 +02:00 [INF] Connected to Redis.
+2024-10-01 18:49:52.812 +02:00 [INF] User profile is available. Using '/Users/andrzejjasinski/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-10-01 18:49:53.345 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:49:53.734 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:49:53.799 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:49:53.802 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:49:53.804 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:49:53.814 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2024-10-01 18:49:53.919 +02:00 [INF] Now listening on: https://localhost:7193
+2024-10-01 18:49:53.919 +02:00 [INF] Now listening on: http://localhost:5282
+2024-10-01 18:49:53.921 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-01 18:49:53.921 +02:00 [INF] Hosting environment: Development
+2024-10-01 18:49:53.921 +02:00 [INF] Content root path: /Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/
+2024-10-01 18:49:54.521 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/ - -
+2024-10-01 18:49:54.576 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:49:54.582 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller StudentsManager.Controllers.HomeController (StudentsManager).
+2024-10-01 18:49:54.587 +02:00 [INF] Executing action method StudentsManager.Controllers.HomeController.Index (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:49:54.621 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:49:54.633 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__userId_0
+2024-10-01 18:49:54.665 +02:00 [INF] Executed action method StudentsManager.Controllers.HomeController.Index (StudentsManager), returned result Microsoft.AspNetCore.Mvc.ViewResult in 72.5469ms.
+2024-10-01 18:49:54.682 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-01 18:49:54.835 +02:00 [INF] Executed ViewResult - view Index executed in 152.3057ms.
+2024-10-01 18:49:54.837 +02:00 [INF] Executed action StudentsManager.Controllers.HomeController.Index (StudentsManager) in 254.49ms
+2024-10-01 18:49:54.838 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:49:54.852 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/ - - - 200 - text/html;+charset=utf-8 334.1469ms
+2024-10-01 18:49:55.468 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2024-10-01 18:49:55.470 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:49:55.472 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - -
+2024-10-01 18:49:55.478 +02:00 [INF] Executing endpoint '/chatHub/negotiate'
+2024-10-01 18:49:55.478 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:49:55.485 +02:00 [INF] Route matched with {action = "GetAllUsers", controller = "Chat"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller StudentsManager.Controllers.ChatController (StudentsManager).
+2024-10-01 18:49:55.488 +02:00 [INF] Executing action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:49:55.496 +02:00 [INF] Executed endpoint '/chatHub/negotiate'
+2024-10-01 18:49:55.497 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0 - 200 316 application/json 28.4963ms
+2024-10-01 18:49:55.502 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:49:55.515 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__currentUserId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] <> @__currentUserId_0
+2024-10-01 18:49:55.516 +02:00 [INF] Executed action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager), returned result Microsoft.AspNetCore.Mvc.JsonResult in 27.8085ms.
+2024-10-01 18:49:55.518 +02:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[StudentsManager.Domain.Models.ApplicationUser, StudentsManager.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-01 18:49:55.522 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/chatHub?id=c4PcQ2G94HiU_2fKI1WNgw - -
+2024-10-01 18:49:55.522 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:49:55.526 +02:00 [INF] Executed action StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) in 41.3478ms
+2024-10-01 18:49:55.527 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:49:55.527 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - - - 200 - application/json;+charset=utf-8 54.9217ms
+2024-10-01 18:49:55.531 +02:00 [INF] Executing endpoint '/chatHub'
+2024-10-01 18:50:30.000 +02:00 [INF] Application is shutting down...
+2024-10-01 18:50:30.052 +02:00 [INF] Executed endpoint '/chatHub'
+2024-10-01 18:50:30.052 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/chatHub?id=c4PcQ2G94HiU_2fKI1WNgw - - - 101 - - 34531.1121ms
+2024-10-01 18:52:03.855 +02:00 [INF] Starting up the service
+2024-10-01 18:52:04.155 +02:00 [INF] Connecting to Redis endpoints: localhost:6379. Using Server Name: MacBook-Pro-Andrzej_74b85ab8d16f42578d2a0d83080fbf85
+2024-10-01 18:52:04.257 +02:00 [INF] Connected to Redis.
+2024-10-01 18:52:04.317 +02:00 [INF] User profile is available. Using '/Users/andrzejjasinski/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-10-01 18:52:04.858 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:52:05.270 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:52:05.331 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:52:05.334 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:52:05.336 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-10-01 18:52:05.358 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2024-10-01 18:52:05.456 +02:00 [INF] Now listening on: https://localhost:7193
+2024-10-01 18:52:05.456 +02:00 [INF] Now listening on: http://localhost:5282
+2024-10-01 18:52:05.458 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-01 18:52:05.458 +02:00 [INF] Hosting environment: Development
+2024-10-01 18:52:05.458 +02:00 [INF] Content root path: /Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/
+2024-10-01 18:52:06.079 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/ - -
+2024-10-01 18:52:06.127 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:52:06.137 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller StudentsManager.Controllers.HomeController (StudentsManager).
+2024-10-01 18:52:06.146 +02:00 [INF] Executing action method StudentsManager.Controllers.HomeController.Index (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:52:06.181 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:52:06.190 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__userId_0
+2024-10-01 18:52:06.227 +02:00 [INF] Executed action method StudentsManager.Controllers.HomeController.Index (StudentsManager), returned result Microsoft.AspNetCore.Mvc.ViewResult in 77.768ms.
+2024-10-01 18:52:06.239 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-01 18:52:06.339 +02:00 [INF] Executed ViewResult - view Index executed in 99.8615ms.
+2024-10-01 18:52:06.342 +02:00 [INF] Executed action StudentsManager.Controllers.HomeController.Index (StudentsManager) in 204.6581ms
+2024-10-01 18:52:06.343 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:52:06.357 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/ - - - 200 - text/html;+charset=utf-8 280.2646ms
+2024-10-01 18:52:06.970 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2024-10-01 18:52:06.971 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:52:06.976 +02:00 [INF] Executing endpoint '/chatHub/negotiate'
+2024-10-01 18:52:06.984 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - -
+2024-10-01 18:52:07.004 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:52:07.004 +02:00 [INF] Executed endpoint '/chatHub/negotiate'
+2024-10-01 18:52:07.004 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0 - 200 316 application/json 34.5829ms
+2024-10-01 18:52:07.009 +02:00 [INF] Route matched with {action = "GetAllUsers", controller = "Chat"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller StudentsManager.Controllers.ChatController (StudentsManager).
+2024-10-01 18:52:07.012 +02:00 [INF] Executing action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:52:07.024 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:52:07.037 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/chatHub?id=HV9cLRXshzhcKBTOOi4x3g - -
+2024-10-01 18:52:07.037 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:52:07.039 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__currentUserId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] <> @__currentUserId_0
+2024-10-01 18:52:07.040 +02:00 [INF] Executing endpoint '/chatHub'
+2024-10-01 18:52:07.041 +02:00 [INF] Executed action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager), returned result Microsoft.AspNetCore.Mvc.JsonResult in 29.4097ms.
+2024-10-01 18:52:07.044 +02:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[StudentsManager.Domain.Models.ApplicationUser, StudentsManager.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-01 18:52:07.056 +02:00 [INF] Executed action StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) in 45.52ms
+2024-10-01 18:52:07.056 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:52:07.056 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - - - 200 - application/json;+charset=utf-8 72.1373ms
+2024-10-01 18:52:56.794 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/Account/Register - -
+2024-10-01 18:52:56.809 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.AccountController.Register (StudentsManager)'
+2024-10-01 18:52:56.827 +02:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register() on controller StudentsManager.Controllers.AccountController (StudentsManager).
+2024-10-01 18:52:56.991 +02:00 [INF] Executing action method StudentsManager.Controllers.AccountController.Register (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:52:56.992 +02:00 [INF] Accessed Register page.
+2024-10-01 18:52:56.992 +02:00 [INF] Executed action method StudentsManager.Controllers.AccountController.Register (StudentsManager), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.5554ms.
+2024-10-01 18:52:56.995 +02:00 [INF] Executing ViewResult, running view Register.
+2024-10-01 18:52:57.054 +02:00 [INF] Executed ViewResult - view Register executed in 62.0016ms.
+2024-10-01 18:52:57.054 +02:00 [INF] Executed action StudentsManager.Controllers.AccountController.Register (StudentsManager) in 227.379ms
+2024-10-01 18:52:57.055 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.AccountController.Register (StudentsManager)'
+2024-10-01 18:52:57.055 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/Account/Register - - - 200 - text/html;+charset=utf-8 260.7710ms
+2024-10-01 18:52:57.142 +02:00 [INF] Executed endpoint '/chatHub'
+2024-10-01 18:52:57.142 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/chatHub?id=HV9cLRXshzhcKBTOOi4x3g - - - 101 - - 50105.7967ms
+2024-10-01 18:53:30.122 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:7193/Account/Register application/x-www-form-urlencoded 364
+2024-10-01 18:53:30.124 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:53:30.131 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.AccountController.Register (StudentsManager)'
+2024-10-01 18:53:30.155 +02:00 [INF] Route matched with {action = "Register", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(StudentsManager.ViewModel.RegisterViewModel) on controller StudentsManager.Controllers.AccountController (StudentsManager).
+2024-10-01 18:53:30.239 +02:00 [INF] Executing action method StudentsManager.Controllers.AccountController.Register (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:53:30.241 +02:00 [INF] Attempt to register user: kwe@kwe.com
+2024-10-01 18:53:30.275 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:53:30.298 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-10-01 18:53:30.428 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTimeOffset), @p9='?' (Size = 256), @p10='?' (Size = 256), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (DbType = Boolean), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [Email], [EmailConfirmed], [FirstName], [LastName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2024-10-01 18:53:30.463 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-10-01 18:53:30.481 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE ([a].[UserId] = @__p_0) AND ([a].[RoleId] = @__p_1)
+2024-10-01 18:53:30.485 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2024-10-01 18:53:30.501 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2024-10-01 18:53:30.518 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+2024-10-01 18:53:30.538 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[@p16='?' (Size = 450), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p0, [ConcurrencyStamp] = @p1, [Email] = @p2, [EmailConfirmed] = @p3, [FirstName] = @p4, [LastName] = @p5, [LockoutEnabled] = @p6, [LockoutEnd] = @p7, [NormalizedEmail] = @p8, [NormalizedUserName] = @p9, [PasswordHash] = @p10, [PhoneNumber] = @p11, [PhoneNumberConfirmed] = @p12, [SecurityStamp] = @p13, [TwoFactorEnabled] = @p14, [UserName] = @p15
+WHERE [Id] = @p16 AND [ConcurrencyStamp] = @p17;
+SELECT @@ROWCOUNT;
+2024-10-01 18:53:30.638 +02:00 [INF] Executed DbCommand (53ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 450), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Teachers] ([Age], [ApplicationUserId], [FirstName], [LastName], [PhoneNumber])
+VALUES (@p0, @p1, @p2, @p3, @p4);
+SELECT [TeacherId]
+FROM [Teachers]
+WHERE @@ROWCOUNT = 1 AND [TeacherId] = scope_identity();
+2024-10-01 18:53:30.662 +02:00 [INF] User kwe@kwe.com registered successfully
+2024-10-01 18:53:30.663 +02:00 [INF] Executed action method StudentsManager.Controllers.AccountController.Register (StudentsManager), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 423.3912ms.
+2024-10-01 18:53:30.664 +02:00 [INF] Executing RedirectResult, redirecting to /.
+2024-10-01 18:53:30.665 +02:00 [INF] Executed action StudentsManager.Controllers.AccountController.Register (StudentsManager) in 508.7125ms
+2024-10-01 18:53:30.665 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.AccountController.Register (StudentsManager)'
+2024-10-01 18:53:30.665 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:7193/Account/Register application/x-www-form-urlencoded 364 - 302 0 - 542.9478ms
+2024-10-01 18:53:30.670 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/ - -
+2024-10-01 18:53:30.672 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:53:30.672 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller StudentsManager.Controllers.HomeController (StudentsManager).
+2024-10-01 18:53:30.673 +02:00 [INF] Executing action method StudentsManager.Controllers.HomeController.Index (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:53:30.674 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:53:30.687 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__userId_0
+2024-10-01 18:53:30.689 +02:00 [INF] Executed action method StudentsManager.Controllers.HomeController.Index (StudentsManager), returned result Microsoft.AspNetCore.Mvc.ViewResult in 16.0705ms.
+2024-10-01 18:53:30.690 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-01 18:53:30.695 +02:00 [INF] Executed ViewResult - view Index executed in 5.1787ms.
+2024-10-01 18:53:30.695 +02:00 [INF] Executed action StudentsManager.Controllers.HomeController.Index (StudentsManager) in 23.132ms
+2024-10-01 18:53:30.695 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.HomeController.Index (StudentsManager)'
+2024-10-01 18:53:30.696 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/ - - - 200 - text/html;+charset=utf-8 25.3517ms
+2024-10-01 18:53:30.763 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - -
+2024-10-01 18:53:30.763 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2024-10-01 18:53:30.763 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:53:30.764 +02:00 [INF] Executing endpoint '/chatHub/negotiate'
+2024-10-01 18:53:30.764 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:53:30.765 +02:00 [INF] Route matched with {action = "GetAllUsers", controller = "Chat"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller StudentsManager.Controllers.ChatController (StudentsManager).
+2024-10-01 18:53:30.766 +02:00 [INF] Executed endpoint '/chatHub/negotiate'
+2024-10-01 18:53:30.766 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:7193/chatHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0 - 200 316 application/json 3.2331ms
+2024-10-01 18:53:30.767 +02:00 [INF] Executing action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:53:30.768 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:53:30.789 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@__currentUserId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] <> @__currentUserId_0
+2024-10-01 18:53:30.790 +02:00 [INF] Executed action method StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager), returned result Microsoft.AspNetCore.Mvc.JsonResult in 23.0998ms.
+2024-10-01 18:53:30.791 +02:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[StudentsManager.Domain.Models.ApplicationUser, StudentsManager.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-01 18:53:30.799 +02:00 [INF] Executed action StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager) in 33.5979ms
+2024-10-01 18:53:30.799 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.ChatController.GetAllUsers (StudentsManager)'
+2024-10-01 18:53:30.800 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/Chat/GetAllUsers - - - 200 - application/json;+charset=utf-8 37.0745ms
+2024-10-01 18:53:30.815 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/Chat/GetMessages?contactId=42b0fb0e-de29-45c3-9a34-f6c1f85c97d1 - -
+2024-10-01 18:53:30.816 +02:00 [INF] Executing endpoint 'StudentsManager.Controllers.ChatController.GetMessages (StudentsManager)'
+2024-10-01 18:53:30.819 +02:00 [INF] Route matched with {action = "GetMessages", controller = "Chat"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMessages(System.String) on controller StudentsManager.Controllers.ChatController (StudentsManager).
+2024-10-01 18:53:30.823 +02:00 [INF] Executing action method StudentsManager.Controllers.ChatController.GetMessages (StudentsManager) - Validation state: "Valid"
+2024-10-01 18:53:30.827 +02:00 [INF] Entity Framework Core 6.0.0 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2024-10-01 18:53:30.837 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:7193/chatHub?id=jOOaVhWPmhFzd1B946jXew - -
+2024-10-01 18:53:30.837 +02:00 [INF] CORS policy execution successful.
+2024-10-01 18:53:30.839 +02:00 [INF] Executing endpoint '/chatHub'
+2024-10-01 18:53:30.914 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[@__userId_0='?' (Size = 450), @__contactId_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Content], [m].[Timestamp], [m].[SenderId], [m].[ReceiverId], [a].[FirstName] AS [SenderFirstName]
+FROM [Messages] AS [m]
+INNER JOIN [AspNetUsers] AS [a] ON [m].[SenderId] = [a].[Id]
+WHERE (([m].[SenderId] = @__userId_0) AND ([m].[ReceiverId] = @__contactId_1)) OR (([m].[SenderId] = @__contactId_1) AND ([m].[ReceiverId] = @__userId_0))
+ORDER BY [m].[Timestamp]
+2024-10-01 18:53:30.914 +02:00 [INF] Executed action method StudentsManager.Controllers.ChatController.GetMessages (StudentsManager), returned result Microsoft.AspNetCore.Mvc.JsonResult in 90.995ms.
+2024-10-01 18:53:30.915 +02:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[<>f__AnonymousType1`6[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], StudentsManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-01 18:53:30.918 +02:00 [INF] Executed action StudentsManager.Controllers.ChatController.GetMessages (StudentsManager) in 98.1119ms
+2024-10-01 18:53:30.918 +02:00 [INF] Executed endpoint 'StudentsManager.Controllers.ChatController.GetMessages (StudentsManager)'
+2024-10-01 18:53:30.918 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/Chat/GetMessages?contactId=42b0fb0e-de29-45c3-9a34-f6c1f85c97d1 - - - 200 - application/json;+charset=utf-8 103.2152ms
+2024-10-01 18:55:46.200 +02:00 [INF] Executed endpoint '/chatHub'
+2024-10-01 18:55:46.202 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:7193/chatHub?id=jOOaVhWPmhFzd1B946jXew - - - 101 - - 135334.0030ms
+2024-10-01 18:57:33.349 +02:00 [INF] Application is shutting down...
+2024-10-01 18:58:58.288 +02:00 [INF] Starting up the service
+2024-10-01 18:59:22.568 +02:00 [INF] Accessed Register page.
+2024-10-01 18:59:46.831 +02:00 [INF] Attempt to register user: kek@kek.com
+2024-10-01 18:59:47.104 +02:00 [INF] User kek@kek.com registered successfully
+2024-10-01 19:41:44.735 +02:00 [INF] Starting up the service
+2024-10-01 19:45:08.618 +02:00 [INF] Starting up the service
+2024-10-01 19:45:49.271 +02:00 [INF] Starting up the service
+2024-10-01 19:49:59.702 +02:00 [INF] Starting up the service
+2024-10-01 23:06:31.763 +02:00 [INF] Starting up the service
+2024-10-01 23:06:47.926 +02:00 [ERR] An error occurred using the connection to database 'YourDatabaseName' on server 'localhost,1433'.
+2024-10-01 23:06:47.943 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'StudentsManager.Context.ApplicationDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+2024-10-01 23:06:47.961 +02:00 [ERR] An error occurred while seeding the database.
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Identity.RoleManager`1.RoleExistsAsync(String roleName)
+   at StudentsManager.Domain.Data.RoleInitializer.InitializeAsync(UserManager`1 userManager, RoleManager`1 roleManager) in /Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager.Domain/Data/RoleInitializer.cs:line 14
+   at StudentsManager.Program.Main(String[] args) in /Users/andrzejjasinski/RiderProjects/StudentsManager/StudentsManager/Program.cs:line 144
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+2024-10-01 23:07:27.429 +02:00 [ERR] An error occurred using the connection to database 'YourDatabaseName' on server 'localhost,1433'.
+2024-10-01 23:07:27.456 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'StudentsManager.Context.ApplicationDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+2024-10-01 23:07:27.574 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 40 - Could not open a connection to SQL Server: Could not open a connection to SQL Server)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover, SqlAuthenticationMethod authType)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Identity.SignInManager`1.ValidateSecurityStampAsync(ClaimsPrincipal principal)
+   at Microsoft.AspNetCore.Identity.SecurityStampValidator`1.ValidateAsync(CookieValidatePrincipalContext context)
+   at Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleAuthenticateAsync()
+   at Microsoft.AspNetCore.Authentication.AuthenticationHandler`1.AuthenticateAsync()
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync(HttpContext context, String scheme)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:00000000-0000-0000-0000-000000000000
