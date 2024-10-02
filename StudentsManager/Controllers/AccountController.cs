@@ -21,7 +21,6 @@ public class AccountController : Controller
     [AllowAnonymous]
     public IActionResult Register()
     {
-        _logger.LogInformation("Accessed Register page.");
         return View();
     }
 

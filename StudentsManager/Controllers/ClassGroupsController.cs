@@ -16,14 +16,17 @@ public class ClassGroupsController : Controller
     private readonly IClassGroupService _classGroupService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
+    private readonly ILogger<AccountController> _logger;
 
     public ClassGroupsController(ApplicationDbContext applicationDbContext,
-        IClassGroupService classGroupService, UserManager<ApplicationUser> userManager, IMapper mapper)
+        IClassGroupService classGroupService, UserManager<ApplicationUser> userManager, IMapper mapper,
+        ILogger<AccountController> logger)
     {
         _applicationDbContext = applicationDbContext;
         _classGroupService = classGroupService;
         _userManager = userManager;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<IActionResult> Index(DateTime? weekStartDate = null)
@@ -70,10 +73,12 @@ public class ClassGroupsController : Controller
 
         if (!creationResult)
         {
+            _logger.LogError($"Error during creating class {viewModel.Name}");
             viewModel = await _classGroupService.PrepareCreateClassGroupViewModelAsync();
             return View(viewModel);
         }
 
+        _logger.LogInformation($"Successfully created new class {viewModel.Name}");
         return RedirectToAction(nameof(Index));
     }
 
