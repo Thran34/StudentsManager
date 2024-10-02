@@ -22,13 +22,11 @@ public class Program
         // Load configuration from appsettings.json
         var builder = WebApplication.CreateBuilder(args);
 
-        // Create custom HttpClientHandler for SSL validation bypass
         var handler = new HttpClientHandler
         {
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
 
-        // Configure Serilog from appsettings and add the custom HttpClientHandler
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
@@ -42,8 +40,6 @@ public class Program
 
         try
         {
-            Log.Information("Starting up the service");
-
             builder.Host.UseSerilog();
 
             if (!builder.Environment.IsDevelopment())
@@ -53,7 +49,6 @@ public class Program
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
 
-            // Determine if we are running locally or on GCP
             string connectionString;
             string redisConnection;
 
