@@ -15,7 +15,7 @@ public class ApplicationDbContextTests : IDisposable
     {
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(
-                "Server=localhost,1433;Database=sqlserver;User=sa;Password=Password123;Encrypt=False")
+                "Server=34.116.143.251;Database=test;User=sqlserver;Password=1234;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;")
             .Options;
 
         _context = new ApplicationDbContext(options);
