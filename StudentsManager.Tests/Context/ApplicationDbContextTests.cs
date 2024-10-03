@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudentsManager.Concrete.Service.Secrets;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
 using Xunit;
@@ -13,14 +14,17 @@ public class ApplicationDbContextTests : IDisposable
 
     public ApplicationDbContextTests()
     {
+        var secretManager = new SecretManagerService();
+        var connectionString = secretManager.GetSecretAsync("conn_string", "aj-dev-434320").Result;
+
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer(
-                "Server=34.116.143.251;Database=test;User=sqlserver;Password=1234;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;")
+            .UseSqlServer(connectionString)
             .Options;
 
         _context = new ApplicationDbContext(options);
         _context.Database.EnsureCreated();
     }
+
 
     [Fact]
     public void CanAddStudentWithoutClassGroup()

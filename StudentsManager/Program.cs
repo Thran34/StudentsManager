@@ -1,17 +1,12 @@
-using FluentValidation.AspNetCore;
+using Google.Cloud.SecretManager.V1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.Splunk;
-using StudentsManager.Abstract.Repo;
-using StudentsManager.Abstract.Service;
-using StudentsManager.Concrete.Repo;
-using StudentsManager.Concrete.Service;
 using StudentsManager.Context;
-using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Models;
-using StudentsManager.Domain.Validators;
 using System.Net.Http;
+using StudentsManager.Domain.Data;
 
 namespace StudentsManager;
 
@@ -19,7 +14,6 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        // Load configuration from appsettings.json
         var builder = WebApplication.CreateBuilder(args);
 
         var handler = new HttpClientHandler
@@ -49,9 +43,9 @@ public class Program
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
 
-            string connectionString;
-            string redisConnection;
+            var connectionString = await GetSecretAsync("conn_string", "aj-dev-434320");
 
+            string redisConnection;
             if (builder.Environment.IsDevelopment())
             {
                 connectionString = builder.Configuration.GetConnectionString("conn_string_local");
@@ -59,8 +53,7 @@ public class Program
             }
             else
             {
-                connectionString = builder.Configuration.GetConnectionString("conn_string_gcp");
-                redisConnection = builder.Configuration.GetConnectionString("redis_gcp");
+                redisConnection = await GetSecretAsync("redis_ip", "aj-dev-434320");
             }
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -83,24 +76,7 @@ public class Program
             builder.Services.AddSignalR().AddStackExchangeRedis(redisConnection,
                 options => { options.Configuration.ChannelPrefix = "SignalR"; });
 
-            // Dependency Injection
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
-            builder.Services.AddScoped<IStudentService, StudentService>();
-            builder.Services.AddScoped<ITeacherService, TeacherService>();
-            builder.Services.AddScoped<IChatService, ChatService>();
-            builder.Services.AddScoped<ILessonPlanService, LessonPlanService>();
-
-            builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
-            builder.Services.AddScoped<ILessonPlanRepository, LessonPlanRepository>();
-            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-            builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-            builder.Services.AddScoped<IChatRepository, ChatRepository>();
-
-            builder.Services.AddFluentValidation(fv =>
-                fv.RegisterValidatorsFromAssemblyContaining<ClassGroupValidator>());
-            builder.Services.AddFluentValidation(fv =>
-                fv.RegisterValidatorsFromAssemblyContaining<ApplicationUserValidator>());
+            // Add other services...
 
             var app = builder.Build();
 
@@ -155,5 +131,13 @@ public class Program
         {
             await Log.CloseAndFlushAsync();
         }
+    }
+
+    private static async Task<string> GetSecretAsync(string secretName, string projectId)
+    {
+        var client = SecretManagerServiceClient.Create();
+        var secretVersionName = $"projects/{projectId}/secrets/{secretName}/versions/latest";
+        var result = await client.AccessSecretVersionAsync(secretVersionName);
+        return result.Payload.Data.ToStringUtf8();
     }
 }
