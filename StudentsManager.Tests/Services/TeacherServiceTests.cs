@@ -12,14 +12,14 @@ using Assert = Xunit.Assert;
 
 namespace StudentsManager.Tests.Services;
 
-public class TeacherServiceIntegrationTests : IDisposable
+public class TeacherServiceTests : IDisposable
 {
     private readonly ApplicationDbContext _context;
     private readonly TeacherRepository _teacherRepository;
     private readonly IMapper _mapper;
     private readonly TeacherService _teacherService;
 
-    public TeacherServiceIntegrationTests()
+    public TeacherServiceTests()
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
