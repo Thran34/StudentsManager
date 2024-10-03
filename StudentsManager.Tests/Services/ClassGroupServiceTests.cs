@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -24,15 +25,20 @@ public class ClassGroupServiceTests : IDisposable
     private readonly IMapper _mapper;
     private readonly ClassGroupService _service;
 
-    // Common test data
     private Teacher _teacher;
     private Student _student;
     private ClassGroup _classGroup;
 
     public ClassGroupServiceTests()
     {
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        var projectId = configuration["ProjectSettings:ProjectId"];
         var secretManager = new SecretManagerService();
-        var connectionString = secretManager.GetSecretAsync("conn_string", "aj-dev-434320").Result;
+        var connectionString = secretManager.GetSecretAsync("conn_string", projectId).Result;
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(connectionString)
@@ -77,7 +83,7 @@ public class ClassGroupServiceTests : IDisposable
             FirstName = "Jane",
             LastName = "Doe",
             PhoneNumber = "1231312132",
-            ApplicationUserId = Guid.NewGuid().ToString() // Use a unique ID
+            ApplicationUserId = Guid.NewGuid().ToString()
         };
         var teacherUser = new ApplicationUser
         {
@@ -135,10 +141,8 @@ public class ClassGroupServiceTests : IDisposable
     [Fact]
     public async Task GetAllClassGroupsAsync_ShouldReturnClassGroups()
     {
-        // Act
         var result = await _service.GetAllClassGroupsAsync(null);
 
-        // Assert
         Assert.Contains(result, cg => cg.Name == _classGroup.Name);
     }
 
@@ -160,10 +164,9 @@ public class ClassGroupServiceTests : IDisposable
             SelectedTeacherId = _teacher.TeacherId,
             SelectedStudentIds = new[] { _student.StudentId }
         };
-        // Act
+
         var result = await _service.TryCreateClassGroupAsync(viewModel);
 
-        // Assert
         Assert.True(result);
     }
 

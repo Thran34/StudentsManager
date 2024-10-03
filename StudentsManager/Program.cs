@@ -6,7 +6,13 @@ using Serilog.Sinks.Splunk;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
 using System.Net.Http;
+using FluentValidation.AspNetCore;
+using StudentsManager.Abstract.Repo;
+using StudentsManager.Abstract.Service;
+using StudentsManager.Concrete.Repo;
+using StudentsManager.Concrete.Service;
 using StudentsManager.Domain.Data;
+using StudentsManager.Domain.Validators;
 
 namespace StudentsManager;
 
@@ -58,6 +64,22 @@ public class Program
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IClassGroupService, ClassGroupService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
+            builder.Services.AddScoped<ITeacherService, TeacherService>();
+            builder.Services.AddScoped<IChatService, ChatService>();
+            builder.Services.AddScoped<ILessonPlanService, LessonPlanService>();
+            builder.Services.AddScoped<IClassGroupRepository, ClassGroupRepository>();
+            builder.Services.AddScoped<ILessonPlanRepository, LessonPlanRepository>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+            builder.Services.AddScoped<IChatRepository, ChatRepository>();
+            builder.Services.AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssemblyContaining<ClassGroupValidator>());
+            builder.Services.AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssemblyContaining<ApplicationUserValidator>());
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

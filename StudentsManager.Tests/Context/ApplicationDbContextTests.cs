@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using StudentsManager.Concrete.Service.Secrets;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
@@ -14,8 +15,14 @@ public class ApplicationDbContextTests : IDisposable
 
     public ApplicationDbContextTests()
     {
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        var projectId = configuration["ProjectSettings:ProjectId"];
         var secretManager = new SecretManagerService();
-        var connectionString = secretManager.GetSecretAsync("conn_string", "aj-dev-434320").Result;
+        var connectionString = secretManager.GetSecretAsync("conn_string", projectId).Result;
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(connectionString)
