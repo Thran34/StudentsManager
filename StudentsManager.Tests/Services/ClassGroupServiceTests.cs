@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using StudentsManager.Concrete.Repo;
 using StudentsManager.Concrete.Service;
+using StudentsManager.Concrete.Service.Secrets;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
 using StudentsManager.ViewModel;
@@ -30,15 +31,16 @@ public class ClassGroupServiceTests : IDisposable
 
     public ClassGroupServiceTests()
     {
+        var secretManager = new SecretManagerService();
+        var connectionString = secretManager.GetSecretAsync("conn_string", "aj-dev-434320").Result;
+
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer(
-                "Server=34.116.143.251;Database=test;User=sqlserver;Password=1234;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;")
+            .UseSqlServer(connectionString)
             .Options;
 
         _context = new ApplicationDbContext(options);
         _context.Database.EnsureCreated();
 
-        // Setting up UserManager with actual dependencies
         var store = new UserStore<ApplicationUser>(_context);
         _userManager = new UserManager<ApplicationUser>(
             store,
@@ -52,7 +54,6 @@ public class ClassGroupServiceTests : IDisposable
             new Mock<ILogger<UserManager<ApplicationUser>>>().Object
         );
 
-        // Setting up other dependencies
         _repository = new ClassGroupRepository(_context);
         var config = new MapperConfiguration(cfg =>
         {
@@ -66,13 +67,11 @@ public class ClassGroupServiceTests : IDisposable
 
         _service = new ClassGroupService(_userManager, _repository, _mapper);
 
-        // Set up the common test data for use in tests
         SetupTestData().Wait();
     }
 
     private async Task SetupTestData()
     {
-        // Create and save a teacher with a unique ID
         _teacher = new Teacher
         {
             FirstName = "Jane",
@@ -89,23 +88,21 @@ public class ClassGroupServiceTests : IDisposable
             Email = "teacher@example.com"
         };
         _context.Users.Add(teacherUser);
-        await _context.SaveChangesAsync(); // Ensure ApplicationUser is saved before adding Teacher
+        await _context.SaveChangesAsync();
         await _context.Teachers.AddAsync(_teacher);
-        await _context.SaveChangesAsync(); // Ensure Teacher is saved before using TeacherId
+        await _context.SaveChangesAsync();
 
-        // Verify the teacher was saved properly
         var persistedTeacher =
             await _context.Teachers.FirstOrDefaultAsync(t => t.ApplicationUserId == _teacher.ApplicationUserId);
         Assert.NotNull(persistedTeacher);
         Assert.True(persistedTeacher.TeacherId > 0, "Teacher ID should be greater than zero");
 
-        // Create and save a student with a unique ID
         _student = new Student
         {
             FirstName = "John",
             LastName = "Doe",
             PhoneNumber = "1231312132",
-            ApplicationUserId = Guid.NewGuid().ToString() // Use a unique ID
+            ApplicationUserId = Guid.NewGuid().ToString()
         };
         var studentUser = new ApplicationUser
         {
@@ -116,17 +113,15 @@ public class ClassGroupServiceTests : IDisposable
             Email = "student@example.com"
         };
         _context.Users.Add(studentUser);
-        await _context.SaveChangesAsync(); // Ensure ApplicationUser is saved before adding Student
+        await _context.SaveChangesAsync();
         await _context.Students.AddAsync(_student);
-        await _context.SaveChangesAsync(); // Ensure Student is saved before using StudentId
+        await _context.SaveChangesAsync();
 
-        // Verify the student was saved properly
         var persistedStudent =
             await _context.Students.FirstOrDefaultAsync(s => s.ApplicationUserId == _student.ApplicationUserId);
         Assert.NotNull(persistedStudent);
         Assert.True(persistedStudent.StudentId > 0, "Student ID should be greater than zero");
 
-        // Create and save a class group with the teacher and the student
         _classGroup = new ClassGroup
         {
             Name = "Class A",
@@ -159,7 +154,6 @@ public class ClassGroupServiceTests : IDisposable
     [Fact]
     public async Task TryCreateClassGroupAsync_ShouldReturnTrue_WhenClassGroupDoesNotExist()
     {
-        // Create the view model for creating a new class group
         var viewModel = new CreateClassGroupViewModel
         {
             Name = "Class B",
@@ -175,7 +169,6 @@ public class ClassGroupServiceTests : IDisposable
 
     public void Dispose()
     {
-        // Teardown logic: Clean up all data created during the tests
         _context.ClassGroups.RemoveRange(_context.ClassGroups);
         _context.Teachers.RemoveRange(_context.Teachers);
         _context.Students.RemoveRange(_context.Students);
