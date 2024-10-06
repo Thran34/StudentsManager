@@ -6,6 +6,12 @@ namespace StudentsManager.Context;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<ClassGroup> ClassGroups { get; set; }
+    public DbSet<LessonPlan> LessonPlans { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
@@ -60,10 +66,4 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(cg => cg.TeacherId)
             .OnDelete(DeleteBehavior.Restrict);
     }
-
-    public DbSet<Student> Students { get; set; }
-    public DbSet<Teacher> Teachers { get; set; }
-    public DbSet<Message> Messages { get; set; }
-    public DbSet<ClassGroup> ClassGroups { get; set; }
-    public DbSet<LessonPlan> LessonPlans { get; set; }
 }

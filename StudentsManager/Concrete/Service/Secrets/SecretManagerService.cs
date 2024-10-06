@@ -4,12 +4,7 @@ namespace StudentsManager.Concrete.Service.Secrets;
 
 public class SecretManagerService
 {
-    private readonly SecretManagerServiceClient _client;
-
-    public SecretManagerService()
-    {
-        _client = SecretManagerServiceClient.Create();
-    }
+    private readonly SecretManagerServiceClient _client = SecretManagerServiceClient.Create();
 
     public async Task<string> GetSecretAsync(string secretName, string projectId)
     {

@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A405B2F4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsManager.Domain", "StudentsManager.Domain\StudentsManager.Domain.csproj", "{375B4C52-CC20-44C2-881A-5FC8392F3BCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsManager.Infra", "StudentsManager.Infra\StudentsManager.Infra.csproj", "{98E954DD-8391-41C1-A2D9-5C107ECAD555}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{375B4C52-CC20-44C2-881A-5FC8392F3BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{375B4C52-CC20-44C2-881A-5FC8392F3BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{375B4C52-CC20-44C2-881A-5FC8392F3BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98E954DD-8391-41C1-A2D9-5C107ECAD555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98E954DD-8391-41C1-A2D9-5C107ECAD555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98E954DD-8391-41C1-A2D9-5C107ECAD555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98E954DD-8391-41C1-A2D9-5C107ECAD555}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{ABC47611-65A2-4708-853C-2583534B7568} = {A405B2F4-8310-4397-8C6B-F10F9A53E8D3}

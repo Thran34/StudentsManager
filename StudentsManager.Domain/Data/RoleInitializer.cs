@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using StudentsManager.Domain.Models;
+using StudentsManager.Infra;
 
 namespace StudentsManager.Domain.Data;
 
@@ -27,6 +28,7 @@ public static class RoleInitializer
                 EmailConfirmed = true
             };
 
+            var password = SecretAccessor.GetSecretAsync("admin_password", "aj-dev-434320");
             var result = await userManager.CreateAsync(newUser, "AdminPassword123!");
             if (result.Succeeded)
                 await userManager.AddToRoleAsync(newUser, "Admin");

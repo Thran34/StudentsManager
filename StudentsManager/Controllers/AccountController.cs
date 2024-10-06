@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog.Context;
 using StudentsManager.Abstract.Service;
 using StudentsManager.ViewModel;
 
@@ -61,19 +62,24 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
     {
-        _logger.LogInformation("Attempt to login user: {Username}", model.Email);
-        ViewData["ReturnUrl"] = returnUrl;
+        var clientIp = GetClientIp();
 
-        var result = await _userService.LoginUserAsync(model);
-        if (result.Succeeded)
+        using (LogContext.PushProperty("ClientIp", clientIp))
         {
-            _logger.LogInformation("User {Username} logged in successfully", model.Email);
-            return LocalRedirect(returnUrl ?? Url.Content("~/"));
-        }
+            _logger.LogInformation($"Attempt to login user: {model.Email}, from IP: {clientIp}");
+            ViewData["ReturnUrl"] = returnUrl;
 
-        _logger.LogWarning("Invalid login attempt for user: {Username}", model.Email);
-        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        return View(model);
+            var result = await _userService.LoginUserAsync(model);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation($"User {model.Email} logged in successfully from IP: {clientIp}.");
+                return LocalRedirect(returnUrl ?? Url.Content("~/"));
+            }
+
+            _logger.LogWarning($"Invalid login attempt from ip {clientIp}.");
+            ModelState.AddModelError(string.Empty, $"Invalid login attempt from ip {clientIp}.");
+            return View(model);
+        }
     }
 
     [Authorize(Roles = "Admin")]
@@ -113,5 +119,10 @@ public class AccountController : Controller
         _logger.LogInformation("User logged out.");
         await _userService.LogoutUserAsync();
         return RedirectToAction("Index", "Home");
+    }
+
+    private string GetClientIp()
+    {
+        return HttpContext.Connection.RemoteIpAddress?.ToString();
     }
 }

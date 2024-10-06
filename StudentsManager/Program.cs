@@ -1,11 +1,8 @@
-using Google.Cloud.SecretManager.V1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Sinks.Splunk;
 using StudentsManager.Context;
 using StudentsManager.Domain.Models;
-using System.Net.Http;
 using FluentValidation.AspNetCore;
 using StudentsManager.Abstract.Repo;
 using StudentsManager.Abstract.Service;
@@ -13,6 +10,7 @@ using StudentsManager.Concrete.Repo;
 using StudentsManager.Concrete.Service;
 using StudentsManager.Domain.Data;
 using StudentsManager.Domain.Validators;
+using StudentsManager.Infra;
 
 namespace StudentsManager;
 
@@ -30,8 +28,8 @@ public class Program
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
-                builder.Configuration["Serilog:WriteTo:1:Args:splunkHost"],
-                builder.Configuration["Serilog:WriteTo:1:Args:eventCollectorToken"],
+                await SecretAccessor.GetSecretAsync("splunk_host", "aj-dev-434320"),
+                await SecretAccessor.GetSecretAsync("splunk_token", "aj-dev-434320"),
                 index: builder.Configuration["Serilog:WriteTo:1:Args:index"],
                 batchSizeLimit: int.Parse(builder.Configuration["Serilog:WriteTo:1:Args:batchSizeLimit"]),
                 messageHandler: handler
@@ -49,7 +47,7 @@ public class Program
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
 
-            var connectionString = await GetSecretAsync("conn_string", "aj-dev-434320");
+            var connectionString = await SecretAccessor.GetSecretAsync("conn_string", "aj-dev-434320");
 
             string redisConnection;
             if (builder.Environment.IsDevelopment())
@@ -59,7 +57,7 @@ public class Program
             }
             else
             {
-                redisConnection = await GetSecretAsync("redis_ip", "aj-dev-434320");
+                redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", "aj-dev-434320");
             }
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -98,8 +96,6 @@ public class Program
             builder.Services.AddSignalR().AddStackExchangeRedis(redisConnection,
                 options => { options.Configuration.ChannelPrefix = "SignalR"; });
 
-            // Add other services...
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -113,7 +109,7 @@ public class Program
             app.UseStaticFiles();
             app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin());
 
-            app.UseRouting(); // This must be before UseAuthentication and UseAuthorization
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -153,13 +149,5 @@ public class Program
         {
             await Log.CloseAndFlushAsync();
         }
-    }
-
-    private static async Task<string> GetSecretAsync(string secretName, string projectId)
-    {
-        var client = SecretManagerServiceClient.Create();
-        var secretVersionName = $"projects/{projectId}/secrets/{secretName}/versions/latest";
-        var result = await client.AccessSecretVersionAsync(secretVersionName);
-        return result.Payload.Data.ToStringUtf8();
     }
 }

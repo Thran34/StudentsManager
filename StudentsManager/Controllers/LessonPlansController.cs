@@ -15,10 +15,10 @@ public class LessonPlansController : Controller
         _lessonPlanService = lessonPlanService;
     }
 
-    public async Task<IActionResult> Create(int? classGroupId, DayOfWeek? day, int? hour, DateTime? date)
+    public Task<IActionResult> Create(int? classGroupId, DayOfWeek? day, int? hour, DateTime? date)
     {
         var viewModel = _lessonPlanService.PrepareCreateViewModelAsync(classGroupId, day, hour, date);
-        return View(viewModel);
+        return Task.FromResult<IActionResult>(View(viewModel));
     }
 
     [HttpPost]

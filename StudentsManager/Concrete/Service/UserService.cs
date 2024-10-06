@@ -85,8 +85,7 @@ public class UserService : IUserService
 
     public async Task<IdentityResult> RegisterUserAsync(RegisterViewModel model)
     {
-        if (model == null)
-            throw new ArgumentNullException(nameof(model));
+        ArgumentNullException.ThrowIfNull(model);
 
         var user = _mapper.Map<ApplicationUser>(model);
 

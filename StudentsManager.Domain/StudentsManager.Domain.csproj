@@ -14,4 +14,8 @@
         <PackageReference Include="Serilog.Sinks.Splunk" Version="5.0.1"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\StudentsManager.Infra\StudentsManager.Infra.csproj"/>
+    </ItemGroup>
+
 </Project>
