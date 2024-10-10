@@ -7,7 +7,7 @@ namespace StudentsManager.Domain.Data;
 public static class RoleInitializer
 {
     public static async Task InitializeAsync(UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<IdentityRole> roleManager, string projectId)
     {
         string[] roleNames = { "TEACHER", "STUDENT", "Admin", "User" };
         foreach (var roleName in roleNames)
@@ -28,8 +28,8 @@ public static class RoleInitializer
                 EmailConfirmed = true
             };
 
-            var password = SecretAccessor.GetSecretAsync("admin_password", "aj-dev-434320");
-            var result = await userManager.CreateAsync(newUser, "AdminPassword123!");
+            var password = SecretAccessor.GetSecretAsync("admin_password", projectId).Result;
+            var result = await userManager.CreateAsync(newUser, password);
             if (result.Succeeded)
                 await userManager.AddToRoleAsync(newUser, "Admin");
         }

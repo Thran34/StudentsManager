@@ -24,12 +24,13 @@ public class Program
         {
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
+        var projectId = builder.Configuration["ProjectSettings:ProjectId"];
 
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
-                await SecretAccessor.GetSecretAsync("splunk_host", "aj-dev-434320"),
-                await SecretAccessor.GetSecretAsync("splunk_token", "aj-dev-434320"),
+                await SecretAccessor.GetSecretAsync("splunk_host", projectId),
+                await SecretAccessor.GetSecretAsync("splunk_token", projectId),
                 index: builder.Configuration["Serilog:WriteTo:1:Args:index"],
                 batchSizeLimit: int.Parse(builder.Configuration["Serilog:WriteTo:1:Args:batchSizeLimit"]),
                 messageHandler: handler
@@ -47,8 +48,7 @@ public class Program
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
 
-            var connectionString = await SecretAccessor.GetSecretAsync("conn_string", "aj-dev-434320");
-
+            string connectionString;
             string redisConnection;
             if (builder.Environment.IsDevelopment())
             {
@@ -57,7 +57,8 @@ public class Program
             }
             else
             {
-                redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", "aj-dev-434320");
+                connectionString = SecretAccessor.GetSecretAsync("conn_string", projectId).Result;
+                redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", projectId);
             }
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -130,7 +131,7 @@ public class Program
                 {
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await RoleInitializer.InitializeAsync(userManager, roleManager);
+                    await RoleInitializer.InitializeAsync(userManager, roleManager, projectId);
                 }
                 catch (Exception ex)
                 {
