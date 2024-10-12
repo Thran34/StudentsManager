@@ -25,7 +25,14 @@ public class Program
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
         var projectId = builder.Configuration["ProjectSettings:ProjectId"];
-
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .WriteTo.EventCollector(
+                "",
+                ""
+            )
+            .CreateLogger();
+/*
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
@@ -36,13 +43,12 @@ public class Program
                 messageHandler: handler
             )
             .CreateLogger();
-
+*/
         try
         {
             builder.Host.UseSerilog();
 
-            if (!builder.Environment.IsDevelopment())
-                builder.WebHost.UseUrls("http://*:80");
+            builder.WebHost.UseUrls("http://*:80");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -50,16 +56,9 @@ public class Program
 
             string connectionString;
             string redisConnection;
-            if (builder.Environment.IsDevelopment())
-            {
-                connectionString = builder.Configuration.GetConnectionString("conn_string_local");
-                redisConnection = "localhost:6379";
-            }
-            else
-            {
-                connectionString = SecretAccessor.GetSecretAsync("conn_string", projectId).Result;
-                redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", projectId);
-            }
+
+            connectionString = SecretAccessor.GetSecretAsync("conn_string", projectId).Result;
+            redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", projectId);
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -99,12 +98,13 @@ public class Program
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+// Configure the HTTP request pipeline.
+/*  if (!app.Environment.IsDevelopment())
+  {
+      app.UseExceptionHandler("/Home/Error");
+      app.UseHsts();
+  }
+  */
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
