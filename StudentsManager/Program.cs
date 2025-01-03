@@ -25,6 +25,7 @@ public class Program
             ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
         var projectId = builder.Configuration["ProjectSettings:ProjectId"];
+        /*
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
@@ -32,23 +33,24 @@ public class Program
                 ""
             )
             .CreateLogger();
-/*
+            */
+
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.EventCollector(
-                await SecretAccessor.GetSecretAsync("splunk_host", projectId),
-                await SecretAccessor.GetSecretAsync("splunk_token", projectId),
-                index: builder.Configuration["Serilog:WriteTo:1:Args:index"],
-                batchSizeLimit: int.Parse(builder.Configuration["Serilog:WriteTo:1:Args:batchSizeLimit"]),
+                await SecretAccessor.GetSecretAsync("splunk_host", "aj-dev-443721"),
+                await SecretAccessor.GetSecretAsync("splunk_token", "aj-dev-443721"),
+                index: builder.Configuration["Serilog:WriteTo:0:Args:index"],
+                batchSizeLimit: int.Parse(builder.Configuration["Serilog:WriteTo:0:Args:batchSizeLimit"]),
                 messageHandler: handler
             )
             .CreateLogger();
-*/
+
         try
         {
             builder.Host.UseSerilog();
 
-            builder.WebHost.UseUrls("http://*:80");
+            //builder.WebHost.UseUrls("http://*:80");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -57,7 +59,9 @@ public class Program
             string connectionString;
             string redisConnection;
 
-            connectionString = SecretAccessor.GetSecretAsync("conn_string", projectId).Result;
+
+            connectionString = builder.Configuration.GetConnectionString("conn_string_local");
+            //connectionString = SecretAccessor.GetSecretAsync("conn_string", projectId).Result;
             redisConnection = await SecretAccessor.GetSecretAsync("redis_ip", projectId);
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -98,13 +102,13 @@ public class Program
 
             var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-/*  if (!app.Environment.IsDevelopment())
-  {
-      app.UseExceptionHandler("/Home/Error");
-      app.UseHsts();
-  }
-  */
+            // Configure the HTTP request pipeline.
+            /*  if (!app.Environment.IsDevelopment())
+              {
+                  app.UseExceptionHandler("/Home/Error");
+                  app.UseHsts();
+              }
+              */
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
